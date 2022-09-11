@@ -20,7 +20,7 @@ var CoachSchema = new Schema({
         required: true
     },
     age: {
-        type: Int,
+        type: Number,
         required: true
     },
     gender: {

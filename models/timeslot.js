@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 var TimeSlotSchema = new Schema({
     sessionID: {
-        type: Int,
+        type: Number,
         required: true
     },
     coachID: {

@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 var BookingSchema = new Schema({
     sessionTime: {
-        type: DateTime,
+        type: Date,
         required: true
     },
     address: {
