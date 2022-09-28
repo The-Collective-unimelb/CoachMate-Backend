@@ -28,7 +28,7 @@ var TraineeSchema = new Schema({
         required: true,
         enum: ['Male', 'Female']
     },
-    booking: [
+    bookings: [
         {
           booking: {
             type: mongoose.Schema.Types.ObjectId,

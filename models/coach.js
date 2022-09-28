@@ -36,7 +36,7 @@ var CoachSchema = new Schema({
         type: String,
         required: true
     },
-    booking: [
+    bookings: [
         {
           booking: {
             type: mongoose.Schema.Types.ObjectId,
@@ -50,7 +50,7 @@ var CoachSchema = new Schema({
             timeSlot: {
                 type: mongoose.Schema.Types.ObjectId,
             ref: 'TimeSlot',
-            required: true,
+            required: false,
             }
         }
     ]

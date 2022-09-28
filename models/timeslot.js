@@ -6,13 +6,18 @@ var TimeSlotSchema = new Schema({
         type: Number,
         required: true
     },
-    coachID: {
-        type: String,
-        required: true
-    },
-    time: {
+    timeStart: {
         type: Date,
         required: true
+    },
+    timeEnd: {
+        type: Date,
+        required: true
+    },
+    sessionType: {
+        type: String,
+        required: true,
+        enum: ['Private', 'Group']
     }
 })
 
