@@ -19,27 +19,65 @@ async function connectDb() {
     }
 }
 
-async function initOneCoach() {
+async function initCoach(i) {
     const newCoach = new Coach({
-        email: '123@abc.com',
-        password: await bcrypt.hash('Coach', 10),
-        firstName: 'Coa',
-        lastName: 'Ch',
-        age: 35,
+        email: 'coach' + i + '@gmail.com',
+        password: await bcrypt.hash('coach' + i, 10),
+        firstName: 'Fname' + i,
+        lastName: 'Lname' + i,
+        age: i + 30,
         gender: 'Male',
-        price: 35,
-        address: 'ABC Street',
-        timeSlot: {
-            sessionID: 35,
-            coachID: 'CoaCh',
-            time: new Date()
-        }
+        price: i * 100,
+        address: 'Coach address ' + i,
+        bookings: [],
+        timeslot: []
     })
     newCoach.save()
     return newCoach
 }
 
+async function initCoaches() {
+    const coach = await Coach.findOne()
+    if (coach) {
+        return
+    }
+
+    for (let i = 0; i < 5; i++) {
+        await initCoach(i)
+    }
+}
+
+async function initTrainee(i) {
+    const newTrainee = new Trainee({
+        email: 'trainee' + i + '@gmail.com',
+        password: await bcrypt.hash('trainee' + i, 10),
+        firstName: 'Fname' + i,
+        lastName: 'Lname' + i,
+        age: i + 15,
+        gender: 'Male',
+        bookings: []
+    })
+    newTrainee.save()
+    return newTrainee
+}
+
+async function initTrainees() {
+    const trainee = await Trainee.findOne()
+    if (trainee) {
+        return
+    }
+
+    for (let i = 0; i < 10; i++) {
+        await initTrainee(i)
+    }
+}
+
+async function initUsers() {
+    await initCoaches()
+    await initTrainees()
+}
+
 module.exports = {
     connectDb,
-    initOneCoach
+    initUsers
 }
