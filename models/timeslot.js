@@ -3,8 +3,9 @@ const Schema = mongoose.Schema;
 
 var TimeSlotSchema = new Schema({
     sessionID: {
-        type: Number,
-        required: true
+        type: String,
+        required: true,
+        unique: true
     },
     timeStart: {
         type: Date,

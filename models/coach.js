@@ -45,7 +45,7 @@ var CoachSchema = new Schema({
             },
         },
     ],
-    timeSlot: [
+    timeSlots: [
         {
             timeSlot: {
                 type: mongoose.Schema.Types.ObjectId,

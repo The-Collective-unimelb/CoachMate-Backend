@@ -23,7 +23,7 @@ var BookingSchema = new Schema({
     status: {
         type: String,
         required: true,
-        enum: ['Booked', 'Cancelled']
+        enum: ['Booked', 'Cancelled', 'Pending']
     },
     trainees: [
         {
