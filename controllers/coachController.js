@@ -12,7 +12,7 @@ exports.createTimeSlot = async (req, res) => {
     await newTimeSlot.save()
 
     const coach = await Coach.findById(req.user._id)
-    coach.timeSlots.push({timeSlot: newTimeSlot._id})
+    coach.timeSlots.push(newTimeSlot._id)
     await coach.save()
 
     return newTimeSlot
@@ -35,7 +35,7 @@ exports.updateTimeSlot = async (req, res) => {
             sessionType: req.body.sessionType
         }
 
-        timeSlot.save()
+        await timeSlot.save()
         return timeSlot
     } else {
         throw Error('Time slot does not exist for this coach')
@@ -48,7 +48,7 @@ exports.acceptBooking = async (req, res) => {
 
     if (booking) {
         booking.status = 'Booked'
-        booking.save()
+        await booking.save()
     } else {
         throw Error('Acceptance failed')
     }
