@@ -2,11 +2,16 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 
-const passport = require('passport');
+const PORT = process.env.PORT ||  8080;
+
+const routes = require("./routes/api")
+
+//const passport = require('passport');
 const flash = require('express-flash');
 const session = require('express-session');
 
-require('./auth/passport')(passport);
+//require('./auth/passport')(passport);
+
 app.use(flash());
 app.use(
   session({
@@ -16,11 +21,15 @@ app.use(
     cookie: { maxAge: 900000 },
   }),
 );
-app.use(passport.initialize());
-app.use(passport.session());
+
+//app.use(passport.initialize());
+//app.use(passport.session());
+
+app.use("/", routes);
 
 require('./models/db').connectDb()
 require('./models/db').initUsers()
-app.listen(3000, () => {
-    console.log("Listening on 3000")
+
+app.listen(PORT, () => {
+    console.log(`Listening on ${PORT}`)
 })
