@@ -33,7 +33,7 @@ if (
   app.use(express.static("coachmate-frontend/build"));
   app.get("*", (req, res) => {
     res.sendFile(
-      path.join(__dirname + "/coachmate-frontend/build/index.html")
+      path.resolve(__dirname, "../coachmate-frontend/build", "index.html")
     );
   });
 }
