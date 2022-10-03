@@ -1,0 +1,67 @@
+.vertical-flex {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.topbar {
+  display: flex;
+  align-self: flex-start;
+  font-size: 15px;
+  padding-bottom: 40px;
+}
+
+.topbar-text {
+  color: dodgerblue;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding-bottom: 3px;
+}
+
+.heading {
+  text-align: center;
+  font-weight: 600;
+  margin-top: 0;
+}
+
+.horizontal-flex {
+  padding: 30px;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+@media (max-width: 1000px) {
+  .horizontal-flex {
+    display: flex;
+    flex-direction: column;
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  p {
+    text-align: center;
+  }
+}
+
+.profile-pic-column {
+  align-items: center;
+  margin: 0 auto 30px auto;
+}
+
+.profile-details-column {
+  padding: 0 50px 0 50px;
+}
+
+.coach-name {
+  text-align: center;
+}
+
+.profile-pic {
+  max-width: 200px;
+  align-content: center;
+}

@@ -1,0 +1,16 @@
+.coach-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (max-width: 1145px) {
+    .form {
+        display: grid;
+    }
+    .form button{
+        margin-top: 16px;
+        margin-left: 24px;
+        grid-column: 1;
+    }
+}

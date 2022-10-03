@@ -1,0 +1,30 @@
+.form {
+  padding: 20px;
+  background-color: #fff4cf;
+  display: flex;
+  justify-content: space-between;
+}
+
+.form label {
+  display: inline-block;
+  font-weight: 500;
+}
+
+.form button {
+  margin-left: 20px;
+  margin-right: 36px;
+  padding: 10px 0px 10px 0px;
+  font-size: 16px;
+  font-weight: 600;
+  width: 120px;
+}
+
+.filter-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.labels {
+  margin: 5px 0px 5px 24px;
+  font-size: 16px;
+}

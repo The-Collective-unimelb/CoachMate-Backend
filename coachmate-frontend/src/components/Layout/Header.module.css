@@ -1,0 +1,52 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  background: #ffb200;
+  border-bottom: 4px solid;
+  align-items: center;
+}
+
+.logo {
+  width: 300px;
+  height: 100px;
+  margin-right: auto;
+  float: left;
+  transition: all .3s ease;
+}
+
+.logo:hover::before {
+  transform: scaleX(0);
+}
+
+.logo:hover {
+  width: 310px;
+}
+
+.header h1 {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.nav-item {
+  display: inline-block;
+  font-weight: 700;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.flexbox-navbar-text {
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.flexbox-navbar-text li {
+  display: inline-block;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.login {
+  margin: 20px 40px 20px 40px;
+  font-size: 30px;
+  font-weight: bold;
+}

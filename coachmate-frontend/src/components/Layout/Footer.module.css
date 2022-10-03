@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #FFB200;
+    position: relative;
+    left: 0vw;
+    bottom: 0vh;
+    border-top: 4px solid;
+    height: 150px;
+}
+
+.div1{ 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding-left: 5vh;
+}
+.div2{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+.div3{
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 2vh;
+}
+.div4{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 5vh;
+}
+.h1{
+    font-family: "Roboto";
+    font-size: 15px;
+    font-weight: 600;
+    padding: 3px 2px 3px 2px;
+    text-align: center;
+}
+.h2{
+    font-family: "Roboto";
+    font-size: 25px;
+    font-weight: 1000;
+}
+
+.coachmate-square-logo{
+    width: 150px;
+    height: 150px;
+}
