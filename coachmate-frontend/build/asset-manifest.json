@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/static/css/main.ebfa9383.css",
+    "main.js": "/static/js/main.473352c5.js",
+    "static/media/CoachmateSquare.png": "/static/media/CoachmateSquare.5d479416a1f144da9584.png",
+    "static/media/BookingTick.png": "/static/media/BookingTick.4247747cad6d712a2fe7.png",
+    "static/media/pfp-blue.jpg": "/static/media/pfp-blue.35a2962d618e4c80bc5a.jpg",
+    "static/media/CoachmateFlat.png": "/static/media/CoachmateFlat.ea1bf1273b143c70b83d.png",
+    "static/media/profile pic.png": "/static/media/profile pic.a9136072d073801df253.png",
+    "static/media/netball.png": "/static/media/netball.ac5519dd9317c637c665.png",
+    "index.html": "/index.html",
+    "main.ebfa9383.css.map": "/static/css/main.ebfa9383.css.map",
+    "main.473352c5.js.map": "/static/js/main.473352c5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ebfa9383.css",
+    "static/js/main.473352c5.js"
+  ]
+}
