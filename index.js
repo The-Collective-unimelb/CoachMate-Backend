@@ -31,9 +31,6 @@ if (
   process.env.NODE_ENV === "staging"
 ) {
   app.use(express.static("coachmate-frontend/build"));
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname + "/coachmate-frontend/build/index.html"));
-  });
 }
 
 require("./models/db").connectDb();
