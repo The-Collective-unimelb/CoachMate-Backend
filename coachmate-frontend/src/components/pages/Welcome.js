@@ -35,7 +35,7 @@ function Welcome() {
             everyday!
             <br />
             <br />
-            <b>ANYWHERE.ANYTIME.</b>
+            <b>ANYWHERE. ANYTIME.</b>
           </div>
         </div>
         <Card>
