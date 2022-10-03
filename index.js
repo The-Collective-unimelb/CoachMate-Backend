@@ -4,8 +4,6 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 
-const routes = require("./routes/api");
-
 //const passport = require('passport');
 //const flash = require("express-flash");
 //const session = require("express-session");
@@ -25,7 +23,8 @@ const routes = require("./routes/api");
 //app.use(passport.initialize());
 //app.use(passport.session());
 
-app.use("/", routes);
+const coachesRouter = require("./routes/coaches");
+app.use("/api/coaches", coachesRouter);
 
 if (
   process.env.NODE_ENV === "production" ||

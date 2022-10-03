@@ -6,7 +6,7 @@ function TestDB() {
 
   const getData = () => {
     axios
-      .get("/api")
+      .get("/api/coches")
       .then((response) => {
         return response.data;
       })

@@ -3,7 +3,7 @@ const router = express.Router();
 
 const coach = require("../models/coach");
 
-router.get("/api", (req, res) => {
+router.get("/", (req, res) => {
   coach
     .find({})
     .then((data) => {
