@@ -19,6 +19,14 @@ var TimeSlotSchema = new Schema({
         type: String,
         required: true,
         enum: ['Private', 'Group']
+    },
+    price: {
+        type: Number,
+        required: true
+    },
+    address: {
+        type: String,
+        required: true
     }
 })
 
