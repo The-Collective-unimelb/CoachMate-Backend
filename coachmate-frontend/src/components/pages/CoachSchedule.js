@@ -18,22 +18,40 @@ const sessionTypes = [
   { type: "Group", duration: "60mins", price: "$40" },
 ];
 
+const timeOptions = [
+  { label: "8am", time: 8 },
+  { label: "9am", time: 9 },
+  { label: "10am", time: 10 },
+  { label: "11am", time: 11 },
+  { label: "12pm", time: 12 },
+  { label: "1pm", time: 13 },
+  { label: "2pm", time: 14 },
+  { label: "3pm", time: 15 },
+  { label: "4pm", time: 16 },
+  { label: "5pm", time: 17 },
+  { label: "6pm", time: 18 },
+];
+
 function CoachSchedule(props) {
   const navigate = useNavigate();
   const location = useLocation();
   const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedTime, setSelectedTime] = useState(null);
   const [sessionType, setSessionType] = useState("Private");
 
   if (location.state === null) {
     return (
-      <>
-        <NoPage text="Please select a coach " linkText="here" to="/coaches" />
-      </>
+      <NoPage text="Please select a coach " linkText="here" to="/coaches" />
     );
   }
 
   function handleSelectDate(newDate) {
     setSelectedDate(newDate);
+  }
+
+  function handleSelectTime(event, newTime) {
+    if (newTime) setSelectedTime(newTime.label);
+    else setSelectedTime(null);
   }
 
   function handleSelectType(value) {
@@ -74,8 +92,11 @@ function CoachSchedule(props) {
         </Stack>
         <Stack spacing={5}>
           <SessionPicker
-            dateTime={selectedDate}
+            date={selectedDate}
+            time={selectedTime}
+            timeOptions={timeOptions}
             onSelectDate={handleSelectDate}
+            onSelectTime={handleSelectTime}
           />
           <SessionType
             sessionType={sessionType}
@@ -84,7 +105,6 @@ function CoachSchedule(props) {
         </Stack>
       </Stack>
       <Button onClick={handleConfirmBooking}>CONFIRM BOOKING</Button>
-
     </div>
   );
 }
