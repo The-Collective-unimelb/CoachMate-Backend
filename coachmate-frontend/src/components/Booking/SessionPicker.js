@@ -1,10 +1,11 @@
 import { useState } from "react";
-import dayjs from "dayjs";
-import { TextField, Autocomplete } from "@mui/material";
+import { Autocomplete, Box } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+
+import dayjs from "dayjs";
+import classes from "./Session.module.css";
 
 const minDate = dayjs();
 const maxDate = dayjs().add(5, "month");
@@ -13,25 +14,28 @@ function SessionPicker(props) {
   const [openDate, setOpenDate] = useState(false);
   const [hasError, setHasError] = useState(false);
 
-  const localizedFormat = require("dayjs/plugin/localizedFormat");
-  dayjs.extend(localizedFormat);
+  let dateColor = "green";
+  const popperSx = {
+    "& .MuiPaper-root": {
+      // backgroundColor: "rgba(120, 120, 120, 0.2)",
+    },
+    "& .MuiCalendarPicker-root": {
+      // backgroundColor: "rgba(45, 85, 255, 0.4)",
+    },
+    "& .MuiPickersDay-dayWithMargin": {
+      color: "white",
+      backgroundColor: `${dateColor}`,
+    },
+    // "& .MuiTabs-root": { backgroundColor: "rgba(120, 120, 120, 0.4)" },
+  };
 
   function handleSelectDate(newDate) {
     props.onSelectDate(newDate);
-    console.log(newDate);
-    console.log(minDate);
-    if (newDate < minDate.date() - 1) {
-      setHasError(true);
-    } else if (newDate > maxDate) {
-      setHasError(true);
-    } else {
+    if (newDate > minDate.date() - 1 && newDate < maxDate) {
       setHasError(false);
+    } else {
+      setHasError(true);
     }
-  }
-
-  function handleError() {
-    setOpenDate(false);
-    // handle formatting here
   }
 
   function handleSelectTime(event, newTime) {
@@ -40,61 +44,58 @@ function SessionPicker(props) {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <label htmlFor="date" className={classes["label"]}>
+        Select Date:
+      </label>
       <DatePicker
         open={openDate}
         onOpen={() => setOpenDate(true)}
-        onClose={handleError}
+        onClose={() => setOpenDate(false)}
         value={props.date}
         onChange={handleSelectDate}
         label="Select date"
-        inputFormat="L"
+        inputFormat="MM/DD/YYYY"
         minDate={minDate}
         maxDate={maxDate}
         views={["day"]}
         mask="__/__/____"
-        components={{ OpenPickerIcon: CalendarMonthIcon }}
-        renderInput={(param) => (
-          <TextField
-            {...param}
-            error={hasError}
-            helperText={hasError && "Invalid"}
-            onClick={() => setOpenDate(true)}
-            sx={{ borderImageWidth: "0px" }}
-          />
+        disableHighlightToday
+        PopperProps={{ sx: popperSx }}
+        renderInput={({ inputRef, inputProps, InputProps }) => (
+          <Box>
+            <input
+              ref={inputRef}
+              {...inputProps}
+              id="date"
+              onClick={() => setOpenDate(true)}
+              className={`${classes["box"]} ${
+                hasError ? classes["err"] : classes["valid"]
+              }`}
+            />
+          </Box>
         )}
       />
-      {/* <TimePicker
-        open={openTime}
-        onOpen={() => setOpenTime(true)}
-        onClose={() => setOpenTime(false)}
-        value={props.time}
-        onChange={handleSelectTime}
-        label="Select time"
-        inputFormat="LT"
-        minTime={minTime}
-        maxTime={maxTime}
-        views={["hours"]}
-        PopperProps={{ sx: popperSx }}
-        shouldDisableTime={disableTime}
-        renderInput={(param) => (
-          <TextField
-            {...param}
-            error={hasError}
-            helperText={hasError && "Invalid"}
-            onClick={() => setOpenTime(true)}
-            sx={{
-              borderImageWidth: "5px",
-            }}
-          />
-        )}
-      /> */}
+      <br />
+      <label htmlFor="time" className={classes["label"]}>
+        Select Time:
+      </label>
       <Autocomplete
         value={props.time || null}
         onChange={handleSelectTime}
         options={props.timeOptions}
         isOptionEqualToValue={(option, value) => option.label === value}
-        renderInput={(params) => <TextField {...params} label="Select time" />}
+        renderInput={(params) => (
+          <div ref={params.InputProps.ref}>
+            <input
+              id="time"
+              type="text"
+              {...params.inputProps}
+              className={`${classes["box"]} ${classes["valid"]}`}
+            />
+          </div>
+        )}
       />
+      <br />
     </LocalizationProvider>
   );
 }

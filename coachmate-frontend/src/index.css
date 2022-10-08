@@ -34,6 +34,25 @@ a:hover::before {
   transform-origin: left;
   transform: scaleX(1);
 }
+input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 2px solid black;
+  box-sizing: border-box;
+  filter: drop-shadow(4px 5px 1px #d4d4d4);
+  margin-top: 2%;
+  margin-bottom: 5%;
+}
+
+label {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+input:focus {
+  outline: none;
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",

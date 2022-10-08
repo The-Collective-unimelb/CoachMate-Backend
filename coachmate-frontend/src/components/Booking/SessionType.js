@@ -1,10 +1,10 @@
 import {
   FormControlLabel,
   FormControl,
-  FormLabel,
   RadioGroup,
   Radio,
 } from "@mui/material";
+import classes from "./Session.module.css";
 
 function SessionType(props) {
   function handleChange(event) {
@@ -13,7 +13,9 @@ function SessionType(props) {
 
   return (
     <FormControl>
-      <FormLabel id="session-type">Session Type</FormLabel>
+      <label htmlFor="session-type" className={classes["label"]}>
+        Session Type
+      </label>
       <RadioGroup
         aria-labelledby="session-type"
         name="session-type"
