@@ -6,65 +6,18 @@
   align-items: center;
 }
 
-.radioDiv {
+.roleContainer {
   display: flex;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  margin: 30px;
 }
 
-#athlete,
-#coach {
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  width: 100px;
-  height: 50px;
-  border: 3px solid black;
-  padding: 0;
-  cursor: pointer;
+.current {
+  background-color: #ffb200;
 }
 
-#coach {
-  border-left: 0;
-}
-
-.athleteRadio {
-  visibility: hidden;
-  position: absolute;
-}
-
-.coachRadio {
-  position: absolute;
-  visibility: hidden;
-}
-
-.athleteLabel:hover,
-.coachLabel:hover {
-  background: #ddd;
-}
-
-.athleteRadio:checked + label {
-  background: #ffc1b2;
-}
-
-.coachRadio:checked + label {
-  background: #ffc1b2;
-}
-
-#athlete {
-  top: 25vh;
-  right: 50vw;
-  padding-right: 0px;
-  margin-right: 0%;
-}
-
-#coach {
-  top: 25vh;
-  left: 50vw;
-  padding-left: 0px;
-  margin-left: 0%;
+.other {
+  background-color: white;
 }
 
 .entries {

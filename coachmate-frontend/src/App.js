@@ -8,7 +8,6 @@ import CoachesList from "./components/pages/CoachesList";
 import CoachProfile from "./components/pages/CoachProfile";
 import EditProfile from "./components/pages/EditProfile";
 import LoginForm from "./components/pages/Login";
-import SignUpForm from "./components/pages/SignUp";
 import CoachDashboard from "./components/pages/CoachDashboard";
 import CoachSchedule from "./components/pages/CoachSchedule";
 import SessionPicker from "./components/Booking/SessionPicker";
@@ -18,6 +17,7 @@ import CoachBookings from "./components/Booking/CoachBookings"
 import AboutUs from "./components/pages/AboutUs";
 import Contact from "./components/pages/Contact"
 import TestDB from "./components/pages/TestDB";
+import SignUpFormAthlete from "./components/pages/SignUpAthlete";
 
 function App() {
   return (
@@ -32,7 +32,8 @@ function App() {
           <Route path="/coach-dashboard" element={<CoachDashboard />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/coaches" element={<CoachesList />} />
-          <Route path="/signup" element={<SignUpForm />} />
+          <Route path="/signup-athlete" element={<SignUpFormAthlete />} />
+          <Route path="/signup-coach" element={<SignUpFormCoach />} />
           <Route path="/schedule" element={<CoachSchedule />} />
           <Route path="/session-picker" element={<SessionPicker />} />
           <Route path="/athlete-booking" element={<AthleteBooking />} />
