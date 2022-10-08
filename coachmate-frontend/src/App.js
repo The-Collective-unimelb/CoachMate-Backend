@@ -18,6 +18,7 @@ import AboutUs from "./components/pages/AboutUs";
 import Contact from "./components/pages/Contact"
 import TestDB from "./components/pages/TestDB";
 import SignUpFormAthlete from "./components/pages/SignUpAthlete";
+import SignUpFormCoach from "./components/pages/SignUpAthlete";
 
 function App() {
   return (
