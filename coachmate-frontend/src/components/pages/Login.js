@@ -103,7 +103,7 @@ function LoginForm(props) {
         <div className={classes.createAccount}>
           <p>
             DON'T HAVE AN ACCOUNT?&nbsp;
-            <Link to="/signup" className={classes.signup}>
+            <Link to="/signup-athlete" className={classes.signup}>
               CREATE AN ACCOUNT
             </Link>
           </p>

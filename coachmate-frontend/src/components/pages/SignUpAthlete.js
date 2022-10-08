@@ -4,9 +4,8 @@ import { Link } from "react-router-dom";
 import classes from "./Signup.module.css";
 import Button from "../UI/Button";
 
-function SignUpForm(props) {
+function SignUpFormAthlete(props) {
   const [state, setState] = useState({
-    role: "Athlete",
     firstName: "",
     lastName: "",
     phone: "",
@@ -26,38 +25,11 @@ function SignUpForm(props) {
   return (
     <div className={classes.loginForm}>
       <div className={classes.form}>
-        <div className={classes.radioDiv}>
-          <input
-            name="role"
-            id={classes["athlete"]}
-            className={classes.athleteRadio}
-            type="radio"
-            value="Athlete"
-            onChange={handleChange}
-            defaultChecked
-          />
-          <label
-            for={classes["athlete"]}
-            id={classes["athlete"]}
-            className={classes.athleteLabel}
-          >
-            ATHLETE
-          </label>
-          <input
-            name="role"
-            id={classes["coach"]}
-            className={classes.coachRadio}
-            type="radio"
-            value="Coach"
-            onChange={handleChange}
-          />
-          <label
-            for={classes["coach"]}
-            id={classes["coach"]}
-            className={classes.coachLabel}
-          >
-            COACH
-          </label>
+        <div className={classes.roleContainer}>
+          <Button className={classes.current}>ATHLETE</Button>
+          <Link to="/signup-coach">
+            <Button className={classes.other}>COACH</Button>
+          </Link>
         </div>
         <h2>SIGN UP</h2>
 
@@ -121,4 +93,4 @@ function SignUpForm(props) {
   );
 }
 
-export default SignUpForm;
+export default SignUpFormAthlete;
