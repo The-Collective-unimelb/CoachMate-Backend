@@ -7,6 +7,7 @@ function Button(props) {
       style={props.style}
       className={classes.button}
       onClick={props.onClick}
+      form={props.form}
     >
       {props.children}
     </button>

@@ -13,20 +13,19 @@ const maxDate = dayjs().add(5, "month");
 function SessionPicker(props) {
   const [openDate, setOpenDate] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const [setShake] = useState(false);
 
   let dateColor = "green";
   const popperSx = {
-    "& .MuiPaper-root": {
-      // backgroundColor: "rgba(120, 120, 120, 0.2)",
-    },
-    "& .MuiCalendarPicker-root": {
-      // backgroundColor: "rgba(45, 85, 255, 0.4)",
-    },
     "& .MuiPickersDay-dayWithMargin": {
       color: "white",
       backgroundColor: `${dateColor}`,
     },
-    // "& .MuiTabs-root": { backgroundColor: "rgba(120, 120, 120, 0.4)" },
+  };
+
+  const animate = () => {
+    setShake(true);
+    setTimeout(() => setShake(false), 1000);
   };
 
   function handleSelectDate(newDate) {
@@ -42,6 +41,13 @@ function SessionPicker(props) {
     props.onSelectTime(event, newTime);
   }
 
+  function handleClose() {
+    setOpenDate(false);
+    if (hasError) {
+      animate()
+    }
+  }
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <label htmlFor="date" className={classes["label"]}>
@@ -50,7 +56,7 @@ function SessionPicker(props) {
       <DatePicker
         open={openDate}
         onOpen={() => setOpenDate(true)}
-        onClose={() => setOpenDate(false)}
+        onClose={handleClose}
         value={props.date}
         onChange={handleSelectDate}
         label="Select date"
@@ -69,7 +75,7 @@ function SessionPicker(props) {
               id="date"
               onClick={() => setOpenDate(true)}
               className={`${classes["box"]} ${
-                hasError ? classes["err"] : classes["valid"]
+                hasError ? classes["shake"] : classes["valid"]
               }`}
             />
           </Box>
