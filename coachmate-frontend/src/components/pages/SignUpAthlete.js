@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import classes from "./Signup.module.css";
-import { Link } from "react-router-dom";
 import Button from "../UI/Button";
 import axios from "axios";
 
@@ -63,10 +62,10 @@ function SignUpFormAthlete(props) {
   return (
     <div className={classes.loginForm}>
       <div className={classes.form}>
-        <div className={classes.roleContainer}>
-          <Button className={classes.current}>ATHLETE</Button>
-          <Link to="/signup-coach"  className={classes.other}>
-            <Button style={{backgroundColor: '#FFFFFF'}}>COACH</Button>
+        <div className={classes["role-horizontal-container"]}>
+          <div className={[classes.current, classes.removeRight].join(' ')}>ATHLETE</div>
+          <Link to="/signup-coach" className={classes.other}>
+            COACH
           </Link>
         </div>
         <h2>SIGN UP</h2>

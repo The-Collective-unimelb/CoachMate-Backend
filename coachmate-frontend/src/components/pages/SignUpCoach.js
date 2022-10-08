@@ -28,11 +28,11 @@ function SignUpFormCoach(props) {
   return (
     <div className={classes.loginForm}>
       <div className={classes.form}>
-        <div className={classes.roleContainer}>
-          <Link to="/signup-athlete">
-            <Button style={{backgroundColor: '#FFFFFF'}}>ATHLETE</Button>
+        <div className={classes["role-horizontal-container"]}>
+          <Link to="/signup-athlete" className={[classes.other, classes.removeRight].join(' ')}>
+            ATHLETE
           </Link>
-          <Button className={classes.current}>COACH</Button>
+          <div className={classes.current}>COACH</div>
         </div>
         <h2>SIGN UP</h2>
 
@@ -61,6 +61,36 @@ function SignUpFormCoach(props) {
             value={state.phone}
             onChange={handleChange}
           />
+          <label>GENDER</label>
+          <br />
+          <br />
+          <select
+            className={classes.entries}
+            name="gender"
+            value={state.gender}
+            onChange={handleChange}
+          >
+            <option value="male">MALE</option>
+            <option value="female">FEMALE</option>
+          </select>
+          <br />
+          <br />
+          <label>ADDRESS</label>
+          <input
+            className={classes.entries}
+            name="address"
+            type="text"
+            value={state.address}
+            onChange={handleChange}
+          />
+          <label>PRICE $</label>
+          <input
+            className={classes.entries}
+            name="price"
+            type="number"
+            value={state.price}
+            onChange={handleChange}
+          />
           <label>EMAIL</label>
           <input
             className={classes.entries}
@@ -85,36 +115,8 @@ function SignUpFormCoach(props) {
             value={state.confirmPassword}
             onChange={handleChange}
           />
-          <label>GENDER</label>
-          <br/>
-          <br/>
-          <select
-            className={classes.entries}
-            name="gender"
-            value={state.gender}
-            onChange={handleChange}
-            >
-                <option value="male">MALE</option>
-                <option value="female">FEMALE</option>
-            </select>
-          <label>ADDRESS</label>
-          <input
-            className={classes.entries}
-            name="address"
-            type="text"
-            value={state.address}
-            onChange={handleChange}
-          />
-          <label>PRICE $</label>
-          <input
-            className={classes.entries}
-            name="price"
-            type="number"
-            value={state.price}
-            onChange={handleChange}
-          />
         </div>
-        <br/>
+        <br />
         {/*<input type="submit" value="SIGN UP" className={classes.submitBtn} />*/}
         <Link to="/login" className={classes.login}>
           <Button>SIGN UP</Button>
