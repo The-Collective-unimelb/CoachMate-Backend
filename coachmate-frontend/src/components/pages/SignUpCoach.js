@@ -12,7 +12,7 @@ function SignUpFormCoach(props) {
     email: "",
     password: "",
     confirmPassword: "",
-    gender: "",
+    gender: "male",
     address: "",
     price: "",
   });
@@ -30,7 +30,7 @@ function SignUpFormCoach(props) {
       <div className={classes.form}>
         <div className={classes.roleContainer}>
           <Link to="/signup-athlete">
-            <Button className={classes.other}>ATHLETE</Button>
+            <Button style={{backgroundColor: '#FFFFFF'}}>ATHLETE</Button>
           </Link>
           <Button className={classes.current}>COACH</Button>
         </div>
@@ -86,6 +86,8 @@ function SignUpFormCoach(props) {
             onChange={handleChange}
           />
           <label>GENDER</label>
+          <br/>
+          <br/>
           <select
             className={classes.entries}
             name="gender"
