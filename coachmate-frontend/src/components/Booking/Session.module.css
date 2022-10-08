@@ -1,0 +1,22 @@
+.box {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  box-sizing: border-box;
+  filter: drop-shadow(4px 5px 1px #d4d4d4);
+  margin-top: 2%;
+  margin-bottom: 5%;
+}
+
+.err {
+  border: 2px solid red;
+}
+
+.valid {
+  border: 2px solid black;
+}
+
+.label {
+    font-size: 16pt;
+}
