@@ -1,0 +1,5 @@
+.horizontal-flex {
+    display: flex;
+    justify-content: space-evenly;
+    padding-bottom: 30px;
+}
