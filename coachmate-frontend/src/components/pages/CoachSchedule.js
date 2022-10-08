@@ -7,8 +7,6 @@ import SessionType from "../Booking/SessionType";
 import { Stack } from "@mui/system";
 import Swal from "sweetalert2";
 import NoPage from "./NoPage";
-
-import BookingTick from "../../assets/BookingTick.png";
 import testPic from "../../assets/profile pic.png";
 
 const sessionTypes = [
@@ -18,18 +16,18 @@ const sessionTypes = [
   { type: "Group", duration: "60mins", price: "$40" },
 ];
 
-const timeOptions = [
-  { label: "8am", time: 8 },
-  { label: "9am", time: 9 },
-  { label: "10am", time: 10 },
-  { label: "11am", time: 11 },
-  { label: "12pm", time: 12 },
-  { label: "1pm", time: 13 },
-  { label: "2pm", time: 14 },
-  { label: "3pm", time: 15 },
-  { label: "4pm", time: 16 },
-  { label: "5pm", time: 17 },
-  { label: "6pm", time: 18 },
+let timeOptions = [
+  { label: "8:00am", time: 8 },
+  { label: "9:00am", time: 9 },
+  { label: "10:00am", time: 10 },
+  { label: "11:00am", time: 11 },
+  { label: "12:00pm", time: 12 },
+  { label: "1:00pm", time: 13 },
+  { label: "2:00pm", time: 14 },
+  { label: "3:00pm", time: 15 },
+  { label: "4:00pm", time: 16 },
+  { label: "5:00pm", time: 17 },
+  { label: "6:00pm", time: 18 },
 ];
 
 function CoachSchedule(props) {
@@ -59,7 +57,8 @@ function CoachSchedule(props) {
     console.log(value);
   }
 
-  function handleConfirmBooking() {
+  function handleConfirmBooking(event) {
+    event.preventDefault();
     // navigate("/booking-success");
 
     Swal.fire({
@@ -82,29 +81,42 @@ function CoachSchedule(props) {
 
   return (
     <div className={classes.layout}>
-      <Stack direction="row" spacing={10}>
-        <Stack spacing={5}>
-          {/* <Button onClick={() => navigate(-1)}>Back</Button> */}
-
-          <img src={testPic} alt="profile pic" />
-          <h2>{location.state.coach.name}</h2>
-          <h3>Venue</h3>
+      <div className={classes.topbar}>
+        <Link to="/coaches" className={classes["topbar-text"]}>
+          COACH LIST
+        </Link>
+        <div>&nbsp; {">"} &nbsp;</div>
+        <div to="#" className={classes["topbar-text"]}>
+          {location.state.coach.name}
+        </div>
+      </div>
+      <div className={classes["stack-col"]}>
+        <Stack spacing={10} direction="row">
+          <Stack spacing={3}>
+            <img src={testPic} alt="profile pic" />
+            <h2>{location.state.coach.name}</h2>
+            <h3>Venue</h3>
+          </Stack>
+          <Stack>
+            <form id="session-form" onSubmit={handleConfirmBooking}>
+              <SessionPicker
+                date={selectedDate}
+                time={selectedTime}
+                timeOptions={timeOptions}
+                onSelectDate={handleSelectDate}
+                onSelectTime={handleSelectTime}
+              />
+              <SessionType
+                sessionType={sessionType}
+                onSelectType={handleSelectType}
+              />
+            </form>
+            <Button type="submit" form="session-form">
+              CONFIRM BOOKING
+            </Button>
+          </Stack>
         </Stack>
-        <Stack spacing={5}>
-          <SessionPicker
-            date={selectedDate}
-            time={selectedTime}
-            timeOptions={timeOptions}
-            onSelectDate={handleSelectDate}
-            onSelectTime={handleSelectTime}
-          />
-          <SessionType
-            sessionType={sessionType}
-            onSelectType={handleSelectType}
-          />
-        </Stack>
-      </Stack>
-      <Button onClick={handleConfirmBooking}>CONFIRM BOOKING</Button>
+      </div>
     </div>
   );
 }

@@ -1,7 +1,33 @@
 .layout {
-  margin: 30px;
+  padding: 50px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+}
+
+.topbar {
+  display: flex;
+  align-self: flex-start;
+  font-size: 15px;
+  padding-bottom: 40px;
+}
+
+.topbar-text {
+  color: dodgerblue;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding-bottom: 3px;
+}
+
+.stack-col {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+@media (max-width: 500px) {
+  .stack-col {
+    display: flex;
+    flex-direction: column;
+  }
 }
