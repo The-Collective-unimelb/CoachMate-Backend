@@ -24,13 +24,17 @@ var UserSchema = new Schema({
         type: String,
         required: true
     },
+    phone: {
+        type: String,
+        required: false
+    },
     age: {
         type: Number,
         required: false
     },
     gender: {
         type: String,
-        required: true,
+        required: false,
         enum: ['Male', 'Female', 'Prefer Not To Say']
     },
     address: {

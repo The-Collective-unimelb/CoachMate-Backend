@@ -1,10 +1,10 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
-const path = require("path")
+const path = require("path");
+const cors = require("cors");
 
 const PORT = process.env.PORT || 5000;
-
 
 //const passport = require('passport');
 const flash = require("express-flash");
@@ -25,8 +25,12 @@ app.use(
 //app.use(passport.initialize());
 //app.use(passport.session());
 
+app.use(cors())
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 const coachesRouter = require("./routes/coaches");
-app.use("/api/coaches", coachesRouter);
+app.use("/coaches", coachesRouter);
 
 if (
   process.env.NODE_ENV === "production" ||

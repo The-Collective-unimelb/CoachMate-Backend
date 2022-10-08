@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import classes from "./Signup.module.css";
 import Button from "../UI/Button";
+import axios from "axios";
 
 function SignUpForm(props) {
   const [state, setState] = useState({
@@ -23,9 +23,45 @@ function SignUpForm(props) {
     }));
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Check if password matches confirm password
+    const { password, confirmPassword } = state;
+
+    if (password !== confirmPassword) {
+      alert("Passwords Don't Match");
+      return;
+    }
+
+    console.log("Client Submitted");
+
+    const payload = {
+      role: state.role,
+      firstName: state.firstName,
+      lastName: state.lastName,
+      phone: state.phone,
+      email: state.email,
+      password: state.password,
+      confirmPassword: state.confirmPassword,
+    };
+
+    axios({
+      url: "http://localhost:5000/coaches/submit",
+      method: "POST",
+      data: payload,
+    })
+      .then(() => {
+        console.log("Data has been received!!");
+      })
+      .catch(() => {
+        alert("Internal Server Error!!");
+      });
+  };
+
   return (
     <div className={classes.loginForm}>
-      <div className={classes.form}>
+      <form onSubmit={handleSubmit} className={classes.form}>
         <div className={classes.radioDiv}>
           <input
             name="role"
@@ -37,7 +73,7 @@ function SignUpForm(props) {
             defaultChecked
           />
           <label
-            for={classes["athlete"]}
+            htmlFor={classes["athlete"]}
             id={classes["athlete"]}
             className={classes.athleteLabel}
           >
@@ -52,7 +88,7 @@ function SignUpForm(props) {
             onChange={handleChange}
           />
           <label
-            for={classes["coach"]}
+            htmlFor={classes["coach"]}
             id={classes["coach"]}
             className={classes.coachLabel}
           >
@@ -73,7 +109,7 @@ function SignUpForm(props) {
           <label>LAST NAME</label>
           <input
             className={classes.entries}
-            name="lastNAME"
+            name="lastName"
             type="text"
             value={state.lastName}
             onChange={handleChange}
@@ -89,6 +125,7 @@ function SignUpForm(props) {
           <label>EMAIL</label>
           <input
             className={classes.entries}
+            required
             name="email"
             type="email"
             value={state.email}
@@ -97,6 +134,7 @@ function SignUpForm(props) {
           <label>PASSWORD</label>
           <input
             className={classes.entries}
+            required
             name="password"
             type="password"
             value={state.password}
@@ -105,18 +143,16 @@ function SignUpForm(props) {
           <label>CONFIRM PASSWORD</label>
           <input
             className={classes.entries}
+            required
             name="confirmPassword"
             type="password"
             value={state.confirmPassword}
             onChange={handleChange}
           />
         </div>
-        <br/>
-        {/*<input type="submit" value="SIGN UP" className={classes.submitBtn} />*/}
-        <Link to="/login" className={classes.login}>
-          <Button>SIGN UP</Button>
-        </Link>
-      </div>
+        <br />
+        <Button>SIGN UP</Button>
+      </form>
     </div>
   );
 }

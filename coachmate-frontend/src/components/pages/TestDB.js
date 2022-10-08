@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import classes from "./TestDB.module.css";
 
 function TestDB() {
   const [users, setUsers] = useState([])
 
   const getData = () => {
     axios
-      .get("/api/coaches")
+      .get("/coaches")
       .then((response) => {
         return response.data;
       })
@@ -25,8 +26,18 @@ function TestDB() {
 
     return users.map((post, index) => (
       <div key={index}>
-        <h3>{post.firstName}</h3>
+        <h3>USER {index + 1}</h3>
+        <h3>NAME</h3>
+        <p>{post.firstName}</p>
         <p>{post.lastName}</p>
+        <h3>ROLE</h3>
+        <p>{post.role}</p>
+        <h3>EMAIL</h3>
+        <p>{post.email}</p>
+        <h3>PASSWORD</h3>
+        <p>{post.password}</p>
+        <h3>PHONE</h3>
+        <p>{post.phone}</p>
       </div>
     ));
   };
@@ -38,7 +49,7 @@ function TestDB() {
   return (
     <div>
       <h1>MONGODB CONNECTION TESTING</h1>
-      <div>{displayData()}</div>
+      <div className={classes["horizontal-flex"]}>{displayData()}</div>
     </div>
   );
 }
