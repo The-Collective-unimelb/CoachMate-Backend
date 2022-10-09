@@ -124,7 +124,7 @@ function SignUpFormAthlete(props) {
           />
         </div>
         <br />
-        <Button>SIGN UP</Button>
+        <Button onClick={handleSubmit}>SIGN UP</Button>
       </div>
     </div>
   );
