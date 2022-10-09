@@ -6,11 +6,11 @@ const cors = require("cors");
 
 const PORT = process.env.PORT || 5000;
 
-//const passport = require('passport');
+const passport = require('passport');
 const flash = require("express-flash");
 const session = require("express-session");
 
-//require('./auth/passport')(passport);
+require('./passport')(passport);
 
 app.use(flash());
 app.use(
@@ -22,8 +22,8 @@ app.use(
   })
 );
 
-//app.use(passport.initialize());
-//app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(cors())
 app.use(express.json());
