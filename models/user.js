@@ -41,6 +41,10 @@ var UserSchema = new Schema({
         type: String,
         required: false
     },
+    price: {
+        type: Number,
+        required: false
+    },
     bookings: [
         {
           booking: {

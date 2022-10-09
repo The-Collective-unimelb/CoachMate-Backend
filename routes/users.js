@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-const coach = require("../models/coach");
 const user = require("../models/user");
 
 router.get("/", (req, res) => {
@@ -29,8 +28,9 @@ router.post("/submit", (req, res) => {
         msg: "Internal Server Error"
       })
     } else {
+      console.log("Data has been saved in MongoDB");
       res.json({
-        msg: "Data has been saved in database",
+        msg: "Data has been saved in MongoDB",
       });
     }
   });

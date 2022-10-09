@@ -1,18 +1,23 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import classes from "./Signup.module.css";
 import Button from "../UI/Button";
+import axios from "axios";
 
 function SignUpFormCoach(props) {
+
+  const navigate = useNavigate();
+
   const [state, setState] = useState({
+    role: "Coach",
     firstName: "",
     lastName: "",
     phone: "",
     email: "",
     password: "",
     confirmPassword: "",
-    gender: "male",
+    gender: "Male",
     address: "",
     price: "",
   });
@@ -25,11 +30,55 @@ function SignUpFormCoach(props) {
     }));
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Check if password matches confirm password
+    const { password, confirmPassword } = state;
+
+    if (password !== confirmPassword) {
+      alert("Passwords Don't Match");
+      return;
+    }
+
+    console.log("Client Submitted");
+
+    const payload = {
+      role: state.role,
+      firstName: state.firstName,
+      lastName: state.lastName,
+      phone: state.phone,
+      email: state.email,
+      password: state.password,
+      gender: state.gender,
+      address: state.address,
+      price: state.price,
+    };
+
+    axios({
+      url: "http://localhost:5000/users/submit",
+      method: "POST",
+      data: payload,
+    })
+      .then(() => {
+        console.log("Coach data has been received!!");
+        navigate("/login");
+      })
+      .catch(() => {
+        alert("Internal Server Error!!");
+      });
+  };
+
+  console.log(state);
+
   return (
     <div className={classes.loginForm}>
       <div className={classes.form}>
         <div className={classes["role-horizontal-container"]}>
-          <Link to="/signup-athlete" className={[classes.other, classes.removeRight].join(' ')}>
+          <Link
+            to="/signup-athlete"
+            className={[classes.other, classes.removeRight].join(" ")}
+          >
             ATHLETE
           </Link>
           <div className={classes.current}>COACH</div>
@@ -70,8 +119,8 @@ function SignUpFormCoach(props) {
             value={state.gender}
             onChange={handleChange}
           >
-            <option value="male">MALE</option>
-            <option value="female">FEMALE</option>
+            <option value="Male">MALE</option>
+            <option value="Female">FEMALE</option>
           </select>
           <br />
           <br />
@@ -117,10 +166,7 @@ function SignUpFormCoach(props) {
           />
         </div>
         <br />
-        {/*<input type="submit" value="SIGN UP" className={classes.submitBtn} />*/}
-        <Link to="/login" className={classes.login}>
-          <Button>SIGN UP</Button>
-        </Link>
+        <Button onClick={handleSubmit}>SIGN UP</Button>
       </div>
     </div>
   );

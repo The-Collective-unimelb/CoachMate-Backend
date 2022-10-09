@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import classes from "./TestDB.module.css";
 
 function TestDB() {
-  const [users, setUsers] = useState([])
+  const [users, setUsers] = useState([]);
 
   const getData = () => {
     axios
-      .get("/coaches")
+      .get("/users")
       .then((response) => {
         return response.data;
       })
@@ -38,6 +38,20 @@ function TestDB() {
         <p>{post.password}</p>
         <h3>PHONE</h3>
         <p>{post.phone}</p>
+        {(() => {
+          if (post.role == "Coach") {
+            return (
+              <div>
+                <h3>GENDER</h3>
+                <p>{post.gender}</p>
+                <h3>ADDRESS</h3>
+                <p>{post.address}</p>
+                <h3>PRICE</h3>
+                <p>{post.price}</p>
+              </div>
+            );
+          }
+        })()}
       </div>
     ));
   };

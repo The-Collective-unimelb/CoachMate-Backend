@@ -29,8 +29,8 @@ app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-const coachesRouter = require("./routes/coaches");
-app.use("/coaches", coachesRouter);
+const usersRouter = require("./routes/users");
+app.use("/users", usersRouter);
 
 if (
   process.env.NODE_ENV === "production" ||

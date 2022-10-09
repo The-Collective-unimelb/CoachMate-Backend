@@ -1,12 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import classes from "./Signup.module.css";
 import Button from "../UI/Button";
 import axios from "axios";
 
 function SignUpFormAthlete(props) {
+
+  const navigate = useNavigate();
+
   const [state, setState] = useState({
+    role: "Athlete",
     firstName: "",
     lastName: "",
     phone: "",
@@ -42,17 +46,17 @@ function SignUpFormAthlete(props) {
       lastName: state.lastName,
       phone: state.phone,
       email: state.email,
-      password: state.password,
-      confirmPassword: state.confirmPassword,
+      password: state.password
     };
 
     axios({
-      url: "http://localhost:5000/coaches/submit",
+      url: "http://localhost:5000/users/submit",
       method: "POST",
       data: payload,
     })
       .then(() => {
-        console.log("Data has been received!!");
+        console.log("Athlete data has been received!!");
+        navigate("/login");
       })
       .catch(() => {
         alert("Internal Server Error!!");
@@ -63,7 +67,9 @@ function SignUpFormAthlete(props) {
     <div className={classes.loginForm}>
       <div className={classes.form}>
         <div className={classes["role-horizontal-container"]}>
-          <div className={[classes.current, classes.removeRight].join(' ')}>ATHLETE</div>
+          <div className={[classes.current, classes.removeRight].join(" ")}>
+            ATHLETE
+          </div>
           <Link to="/signup-coach" className={classes.other}>
             COACH
           </Link>
@@ -124,9 +130,7 @@ function SignUpFormAthlete(props) {
           />
         </div>
         <br />
-        <Link to="/login">
-        <Button onClick={handleSubmit}>SIGN UP</Button>
-        </Link>
+          <Button onClick={handleSubmit}>SIGN UP</Button>
       </div>
     </div>
   );
