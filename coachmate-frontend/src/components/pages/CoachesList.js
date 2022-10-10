@@ -1,6 +1,7 @@
 import CoachCard from "../UI/CoachCard";
+import axios from "axios";
 import classes from "./CoachesList.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CoachSearch from "../Coach/CoachSearch";
 import CoachSearchFilter from "../Coach/CoachSearchFilter";
@@ -23,6 +24,28 @@ const initialFilterFormData = {
 };
 
 function CoachesList() {
+  const [users, setUsers] = useState([]);
+
+  const getData = () => {
+    axios
+      .get("/users")
+      .then((response) => {
+        return response.data;
+      })
+      .then((data) => {
+        setUsers(data);
+        console.log(data);
+        console.log("Data has been received!!");
+      })
+      .catch(() => {
+        alert("Error retrieving data!!");
+      });
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   const navigate = useNavigate();
   const [openFilter, setOpenFilter] = useState(false);
   const [searchVal, setSearchVal] = useState("");
@@ -133,13 +156,13 @@ function CoachesList() {
         />
       )}
       <section className={classes["coach-cards"]}>
-        {DUMMY_VARS.map((coach) => {
+        {users.map((coach, index) => {
           return (
             <CoachCard
-              key={coach.id}
-              name={coach.name}
+              key={index}
+              name={coach.firstName}
               avail={coach.avail}
-              location={coach.location}
+              location={coach.address}
               onClick={() => {
                 navigate("/schedule", { state: { coach: coach } });
               }}
