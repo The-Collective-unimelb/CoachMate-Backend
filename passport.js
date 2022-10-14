@@ -15,7 +15,7 @@ module.exports = (passport) => {
             return done(err, { ...user.toObject(), role: 'athlete' })
             });
         } else if (login.role === 'coach') {
-            Clinician.findById(login._id, (err, user) => {
+            Coach.findById(login._id, (err, user) => {
             return done(err, { ...user.toObject(), role: 'coach' })
             });
         } else {
