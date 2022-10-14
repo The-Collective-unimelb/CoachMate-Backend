@@ -89,7 +89,7 @@ module.exports = (passport) => {
                             } else {
                             return done(
                                 null,
-                                { ...coach.toObject(), role: 'clinician' },
+                                { ...coach.toObject(), role: 'coach' },
                                 req.flash('loginMessage', 'Login successful'),
                             );
                             }
