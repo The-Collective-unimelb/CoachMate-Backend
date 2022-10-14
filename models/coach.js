@@ -28,6 +28,22 @@ var CoachSchema = new Schema({
     required: true,
     enum: ["Male", "Female"],
   },
+  aboutMe: {
+    type: String,
+    required: false,
+  },
+  skills: {
+    type: String,
+    required: false,
+  },
+  qualifications: {
+    type: String,
+    required: false,
+  },
+  contactInfo: {
+    type: String,
+    required: false,
+  },
   sessionType: {
     type: String,
     required: true,
