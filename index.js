@@ -32,6 +32,9 @@ app.use(express.urlencoded({ extended: false }));
 const usersRouter = require("./routes/users");
 app.use("/users", usersRouter);
 
+const bookingsRouter = require("./routes/bookings");
+app.use("/bookings", bookingsRouter);
+
 if (
   process.env.NODE_ENV === "production" ||
   process.env.NODE_ENV === "staging"
