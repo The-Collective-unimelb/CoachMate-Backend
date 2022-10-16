@@ -19,7 +19,6 @@ function SignUpFormCoach(props) {
     confirmPassword: "",
     gender: "Male",
     address: "",
-    price: "",
   });
 
   const handleChange = (e) => {
@@ -52,7 +51,6 @@ function SignUpFormCoach(props) {
       password: state.password,
       gender: state.gender,
       address: state.address,
-      price: state.price,
     };
 
     axios({
@@ -130,14 +128,6 @@ function SignUpFormCoach(props) {
             name="address"
             type="text"
             value={state.address}
-            onChange={handleChange}
-          />
-          <label>PRICE $</label>
-          <input
-            className={classes.entries}
-            name="price"
-            type="number"
-            value={state.price}
             onChange={handleChange}
           />
           <label>EMAIL</label>
