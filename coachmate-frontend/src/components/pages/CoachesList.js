@@ -6,13 +6,6 @@ import { useNavigate } from "react-router-dom";
 import CoachSearch from "../Coach/CoachSearch";
 import CoachSearchFilter from "../Coach/CoachSearchFilter";
 
-const DUMMY_VARS = [
-  { id: 1, name: "John", avail: "9/9/22", location: "mel" },
-  { id: 2, name: "Jack", avail: "10/10/22", location: "mel" },
-  { id: 3, name: "James", avail: "11/11/22", location: "mel" },
-  { id: 4, name: "Jamie", avail: "12/12/22", location: "mel" },
-];
-
 const initialFilterFormData = {
   name: "",
   location: "",
