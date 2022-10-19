@@ -14,11 +14,12 @@ function SignUpFormCoach(props) {
     firstName: "",
     lastName: "",
     phone: "",
+    gender: "Male",
+    age: "",
+    address: "",
     email: "",
     password: "",
     confirmPassword: "",
-    gender: "Male",
-    address: "",
   });
 
   const handleChange = (e) => {
@@ -47,14 +48,15 @@ function SignUpFormCoach(props) {
       firstName: state.firstName,
       lastName: state.lastName,
       phone: state.phone,
+      gender: state.gender,
+      age: state.age,
+      address: state.address,
       email: state.email,
       password: state.password,
-      gender: state.gender,
-      address: state.address,
     };
 
     axios({
-      url: "http://localhost:5000/users/submit",
+      url: "http://localhost:5000/coaches/register",
       method: "POST",
       data: payload,
     })
@@ -122,6 +124,14 @@ function SignUpFormCoach(props) {
           </select>
           <br />
           <br />
+          <label>AGE</label>
+          <input
+            className={classes.entries}
+            name="age"
+            type="number"
+            value={state.age}
+            onChange={handleChange}
+          />
           <label>ADDRESS</label>
           <input
             className={classes.entries}

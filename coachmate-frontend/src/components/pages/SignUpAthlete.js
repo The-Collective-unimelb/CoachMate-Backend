@@ -50,7 +50,7 @@ function SignUpFormAthlete(props) {
     };
 
     axios({
-      url: "http://localhost:5000/users/submit",
+      url: "http://localhost:5000/athlete/register",
       method: "POST",
       data: payload,
     })

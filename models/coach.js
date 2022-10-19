@@ -19,14 +19,18 @@ var CoachSchema = new Schema({
     type: String,
     required: true,
   },
-  age: {
+  phone: {
     type: Number,
-    required: true,
+    required: false,
   },
   gender: {
     type: String,
-    required: true,
+    required: false,
     enum: ["Male", "Female"],
+  },
+  age: {
+    type: Number,
+    required: false,
   },
   aboutMe: {
     type: String,
@@ -46,20 +50,20 @@ var CoachSchema = new Schema({
   },
   sessionType: {
     type: String,
-    required: true,
+    required: false,
     enum: ["Private", "Group"],
   },
   privatePrice: {
     type: Number,
-    required: true,
+    required: false,
   },
   groupPrice: {
     type: Number,
-    required: true,
+    required: false,
   },
   address: {
     type: String,
-    required: true,
+    required: false,
   },
   bookings: [
     {

@@ -29,8 +29,10 @@ app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-const usersRouter = require("./routes/users");
-app.use("/users", usersRouter);
+const coachRouter = require("./routes/coachRouter");
+app.use("/coaches", coachRouter);
+const athleteRouter = require("./routes/athleteRouter");
+app.use("/athlete", athleteRouter);
 
 const bookingsRouter = require("./routes/bookings");
 app.use("/bookings", bookingsRouter);
@@ -48,7 +50,7 @@ if (
 }
 
 require("./models/db").connectDb();
-require("./models/db").initUsers();
+// require("./models/db").initUsers();
 
 app.listen(PORT, () => {
   console.log(`Listening on ${PORT}`);

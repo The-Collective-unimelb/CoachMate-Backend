@@ -7,7 +7,7 @@ function TestDB() {
 
   const getData = () => {
     axios
-      .get("/users")
+      .get("/coaches")
       .then((response) => {
         return response.data;
       })
@@ -30,8 +30,6 @@ function TestDB() {
         <h3>NAME</h3>
         <p>{post.firstName}</p>
         <p>{post.lastName}</p>
-        <h3>ROLE</h3>
-        <p>{post.role}</p>
         <h3>EMAIL</h3>
         <p>{post.email}</p>
         <h3>PASSWORD</h3>
@@ -39,15 +37,13 @@ function TestDB() {
         <h3>PHONE</h3>
         <p>{post.phone}</p>
         {(() => {
-          if (post.role == "Coach") {
+          if (1) {
             return (
               <div>
                 <h3>GENDER</h3>
                 <p>{post.gender}</p>
                 <h3>ADDRESS</h3>
                 <p>{post.address}</p>
-                <h3>PRICE</h3>
-                <p>{post.price}</p>
               </div>
             );
           }
@@ -62,7 +58,7 @@ function TestDB() {
 
   return (
     <div>
-      <h1>MONGODB CONNECTION TESTING</h1>
+      <h1>MONGODB CONNECTION TESTING (COACH)</h1>
       <div className={classes["horizontal-flex"]}>{displayData()}</div>
     </div>
   );

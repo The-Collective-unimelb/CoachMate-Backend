@@ -19,13 +19,17 @@ var TraineeSchema = new Schema({
         type: String,
         required: true
     },
+    phone: {
+        type: Number,
+        required: false
+    },
     age: {
         type: Number,
-        required: true
+        required: false
     },
     gender: {
         type: String,
-        required: true,
+        required: false,
         enum: ['Male', 'Female']
     },
     bookings: [
