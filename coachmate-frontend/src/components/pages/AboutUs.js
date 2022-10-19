@@ -7,6 +7,7 @@ function AboutUs() {
       <img
         className={classes.image}
         src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80"
+        alt="Training"
       />
       <br />
       <div className={classes.about}>

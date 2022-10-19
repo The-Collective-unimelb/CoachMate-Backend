@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-
+import { useState, createContext } from "react";
 import NoPage from "./components/pages/NoPage";
 import Welcome from "./components/pages/Welcome";
 import Footer from "./components/Layout/Footer.js";
@@ -13,16 +13,26 @@ import CoachSchedule from "./components/pages/CoachSchedule";
 import SessionPicker from "./components/Booking/SessionPicker";
 import AthleteBooking from "./components/Booking/AthleteBooking";
 import BookingSuccess from "./components/pages/BookingSuccess";
-import CoachBookings from "./components/Booking/CoachBookings"
+import CoachBookings from "./components/Booking/CoachBookings";
 import AboutUs from "./components/pages/AboutUs";
-import Contact from "./components/pages/Contact"
+import Contact from "./components/pages/Contact";
 import TestDB from "./components/pages/TestDB";
 import SignUpFormAthlete from "./components/pages/SignUpAthlete";
-import SignUpFormCoach from "./components/pages/SignUpCoach"
+import SignUpFormCoach from "./components/pages/SignUpCoach";
+
+export const AuthContext = createContext({
+  isLoggedIn: true,
+  setIsLoggedIn: () => {},
+  role: "",
+  setRole: () => {},
+});
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [role, setRole] = useState("Coach");
+
   return (
-    <div>
+    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, role, setRole }}>
       {/** header and content: viewport height minus footer height */}
       <div style={{ minHeight: "calc(100vh - 150px)" }}>
         <Header />
@@ -47,7 +57,7 @@ function App() {
         </Routes>
       </div>
       <Footer />
-    </div>
+    </AuthContext.Provider>
   );
 }
 

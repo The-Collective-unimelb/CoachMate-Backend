@@ -1,8 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext, useEffect } from "react";
 import classes from "./CoachDashboard.module.css";
 import pfp from "../../assets/pfp-blue.jpg";
 
+import { AuthContext } from "../../App";
+
 function CoachDashboard() {
+  const navigate = useNavigate();
+  const ctx = useContext(AuthContext);
+
+  // check whenever ctx change
+  useEffect(() => {
+    if (ctx.isLoggedIn === false) {
+      navigate("/login");
+    }
+  }, [ctx.isLoggedIn, navigate]);
+
   return (
     <div className={classes["vertical-flex"]}>
       <h1>DASHBOARD</h1>
