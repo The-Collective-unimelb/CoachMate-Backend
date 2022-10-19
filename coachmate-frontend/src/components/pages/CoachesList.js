@@ -2,7 +2,7 @@ import CoachCard from "../UI/CoachCard";
 import axios from "axios";
 import classes from "./CoachesList.module.css";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import CoachSearch from "../Coach/CoachSearch";
 import CoachSearchFilter from "../Coach/CoachSearchFilter";
 
@@ -17,7 +17,13 @@ const initialFilterFormData = {
 };
 
 function CoachesList() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [openFilter, setOpenFilter] = useState(false);
+  const [searchVal, setSearchVal] = useState("");
+  const [filterFormData, setFilterFormData] = useState(initialFilterFormData);
   const [users, setUsers] = useState([]);
+  const [usersFetched, setUsersFetched] = useState(false);
 
   const getData = () => {
     axios
@@ -27,6 +33,7 @@ function CoachesList() {
       })
       .then((data) => {
         setUsers(data);
+        setUsersFetched(true);
         console.log(data);
         console.log("Data has been received!!");
       })
@@ -39,10 +46,24 @@ function CoachesList() {
     getData();
   }, []);
 
-  const navigate = useNavigate();
-  const [openFilter, setOpenFilter] = useState(false);
-  const [searchVal, setSearchVal] = useState("");
-  const [filterFormData, setFilterFormData] = useState(initialFilterFormData);
+  useEffect(() => {
+    if (location.state.searchLocation !== "" && usersFetched) {
+      // Filter address from welcome page
+      setUsers(
+        users.filter((user) => {
+          if (
+            user.hasOwnProperty("address") &&
+            user.address
+              .toLowerCase()
+              .includes(location.state.searchLocation.toLowerCase())
+          ) {
+            return true;
+          }
+          return false;
+        })
+      );
+    }
+  }, [usersFetched]);
 
   const minDistance = 10;
   const maxPrice = 100;

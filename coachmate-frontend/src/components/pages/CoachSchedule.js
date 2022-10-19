@@ -9,13 +9,6 @@ import Swal from "sweetalert2";
 import NoPage from "./NoPage";
 import testPic from "../../assets/profile pic.png";
 
-const sessionTypes = [
-  { type: "1 on 1", duration: "30mins", price: "$40" },
-  { type: "1 on 1", duration: "60mins", price: "$80" },
-  { type: "Group", duration: "30mins", price: "$20" },
-  { type: "Group", duration: "60mins", price: "$40" },
-];
-
 let timeOptions = [
   { label: "8:00am", time: 8 },
   { label: "9:00am", time: 9 },

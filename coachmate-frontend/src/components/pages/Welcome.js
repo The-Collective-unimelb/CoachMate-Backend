@@ -2,8 +2,21 @@ import classes from "./Welcome.module.css";
 import Card from "../UI/Card";
 import netball from "../../assets/netball.png";
 import Button from "../UI/Button";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Welcome() {
+  const navigate = useNavigate();
+  const [location, setLocation] = useState("");
+
+  function handleInput(event) {
+    setLocation(event.target.value);
+  }
+
+  function handleButton() {
+    navigate('/coaches', { state: { searchLocation: location } })
+  }
+
   return (
     <div className={classes["vertical-flex"]}>
       <h1>SEARCH COACHMATE</h1>
@@ -22,9 +35,10 @@ function Welcome() {
             name="Name"
             type="text"
             placeholder="LOCATION"
+            onChange={handleInput}
           />
         </div>
-        <Button>FIND COACH</Button>
+        <Button onClick={handleButton}>FIND COACH</Button>
       </div>
       <div className={classes["horizontal-content-flex"]}>
         <div className={classes["welcome-quote"]}>
