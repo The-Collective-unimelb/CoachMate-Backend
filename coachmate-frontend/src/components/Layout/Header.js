@@ -8,34 +8,22 @@ import { AuthContext } from "../../App";
 function Header() {
   const ctx = useContext(AuthContext);
 
+  function handleLogout() {
+    ctx.setIsLoggedIn(false);
+    ctx.setRole("");
+  }
+
   function isLoggedInLink() {
     if (ctx.isLoggedIn) {
       return (
-        <Link to="/login" className={classes["account"]}>
-          ACCOUNT
+        <Link to="/" className={classes["logout"]} onClick={handleLogout}>
+          LOGOUT
         </Link>
       );
     } else {
       return (
         <Link to="/login" className={classes["login"]}>
           LOGIN
-        </Link>
-      );
-    }
-  }
-
-  function showBookingNav() {
-    if (ctx.role === "Athlete") {
-      return (
-        <Link to="athlete-booking" className={classes["nav-item"]}>
-          My Bookings
-        </Link>
-      );
-    }
-    if (ctx.role === "Coach") {
-      return (
-        <Link to="coach-booking" className={classes["nav-item"]}>
-          My Schedule
         </Link>
       );
     }

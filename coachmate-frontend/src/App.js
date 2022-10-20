@@ -49,10 +49,10 @@ function App() {
           <Route path="/session-picker" element={<SessionPicker />} />
           <Route path="/athlete-booking" element={<AthleteBooking />} />
           <Route path="/coach-booking" element={<CoachBookings />} />
-          <Route path="/booking-success" element={<BookingSuccess />} />
+          {/* <Route path="/booking-success" element={<BookingSuccess />} /> */}
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/test-db" element={<TestDB />} />
+          {/* <Route path="/test-db" element={<TestDB />} /> */}
           <Route path="/*" element={<NoPage />} />
         </Routes>
       </div>

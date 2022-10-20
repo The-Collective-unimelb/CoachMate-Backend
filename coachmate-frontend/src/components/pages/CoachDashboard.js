@@ -27,7 +27,7 @@ function CoachDashboard() {
               className={classes["profile-pic"]}
               alt="profile pic"
             ></img>
-            <h2 className={classes["profile-username"]}>Username</h2>
+            <h2 className={classes["profile-username"]}>Carson</h2>
           </div>
         </div>
         <div className={classes["dashboard-buttons-grid-container"]}>
@@ -43,18 +43,18 @@ function CoachDashboard() {
           <Link to="/schedule" className={classes.link}>
             SCHEDULE
           </Link>
-          <Link to="/athlete-booking" className={classes.link}>
+          {/* <Link to="/athlete-booking" className={classes.link}>
             ATHLETE BOOKING
-          </Link>
-          <Link to="/booking-success" className={classes.link}>
+          </Link> */}
+          {/* <Link to="/booking-success" className={classes.link}>
             BOOKING SUCCESS
-          </Link>
+          </Link> */}
           <Link to="/coach-booking" className={classes.link}>
             COACH BOOKING
           </Link>
-          <Link to="/test-db" className={classes.link}>
+          {/* <Link to="/test-db" className={classes.link}>
             **DATABASE TESTING**
-          </Link>
+          </Link> */}
         </div>
       </div>
     </div>
