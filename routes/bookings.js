@@ -5,4 +5,4 @@ const booking = require("../models/booking");
 
 router.get("/coach", coachController.viewBookings);
 
-  module.exports = router;
+module.exports = router;
