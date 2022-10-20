@@ -21,15 +21,15 @@ import SignUpFormAthlete from "./components/pages/SignUpAthlete";
 import SignUpFormCoach from "./components/pages/SignUpCoach";
 
 export const AuthContext = createContext({
-  isLoggedIn: true,
+  isLoggedIn: false,
   setIsLoggedIn: () => {},
   role: "",
   setRole: () => {},
 });
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [role, setRole] = useState("Coach");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [role, setRole] = useState("");
 
   return (
     <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, role, setRole }}>

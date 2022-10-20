@@ -1,25 +1,20 @@
 import React, { useState } from "react";
-import { ButtonGroup } from "@mui/icons-material";
 import {} from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import classes from "./Login.module.css";
 import Button from "../UI/Button";
+import axios from "axios";
+import { useContext } from "react";
+import { AuthContext } from "../../App";
 
 function LoginForm(props) {
+  const navigate = useNavigate();
+  const ctx = useContext(AuthContext);
   const [state, setState] = useState({
     role: "Athlete",
     email: "",
     password: "",
   });
-
-  /*const [checked, setChecked] = useState({
-    rememberMe : false
-  })*/
-
-  /*const handleChecked =() => {
-
-    setChecked(!checked);
-}*/
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,6 +22,42 @@ function LoginForm(props) {
       ...prevState,
       [name]: value,
     }));
+  };
+
+  const handleLogin = () => {
+    if (state.email === "" || state.password === "") {
+      alert("Enter email and password");
+      return;
+    }
+
+    const payload = {
+      email: state.email,
+      password: state.password,
+    };
+
+    let role;
+    if (state.role === "Coach") role = "coaches";
+    if (state.role === "Athlete") role = "athlete";
+
+    axios({
+      url: `http://localhost:5000/${role}/login`,
+      method: "POST",
+      data: payload,
+    })
+      .then(() => {
+        ctx.setRole(state.role);
+        ctx.setIsLoggedIn(true);
+        if (state.role === "Coach") {
+          navigate("/coach-dashboard");
+        }
+        if (state.role === "Athlete") {
+          navigate("/");
+        }
+        console.log(`${state.role} data has been received!!`);
+      })
+      .catch(() => {
+        alert("Internal Server Error!!");
+      });
   };
 
   return (
@@ -43,7 +74,7 @@ function LoginForm(props) {
             defaultChecked
           />
           <label
-            for={classes["athlete"]}
+            htmlFor={classes["athlete"]}
             id={classes["athlete"]}
             className={classes.athleteLabel}
           >
@@ -59,7 +90,7 @@ function LoginForm(props) {
             onChange={handleChange}
           />
           <label
-            for={classes["coach"]}
+            htmlFor={classes["coach"]}
             id={classes["coach"]}
             className={classes.coachLabel}
           >
@@ -67,7 +98,7 @@ function LoginForm(props) {
           </label>
         </div>
         <h2>LOGIN</h2>
-        
+
         <div className={classes.loginDetails}>
           <label>EMAIL</label>
           <input
@@ -93,13 +124,13 @@ function LoginForm(props) {
                         label="REMEMBER ME"
                     />*/}
         </div>
-        <br/>
+        <br />
         {/* <input type="submit" value="LOGIN" className={classes.submitBtn}/> */}
         {/* Link to dashboard temporarily */}
-        <Link to="/coach-dashboard" className={classes.login}>
-          <Button>LOGIN</Button>
-        </Link>
-        <br/>
+        <Button type="submit" onClick={handleLogin}>
+          LOGIN
+        </Button>
+        <br />
         <div className={classes.createAccount}>
           <p>
             DON'T HAVE AN ACCOUNT?&nbsp;

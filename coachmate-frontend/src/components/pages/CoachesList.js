@@ -27,7 +27,7 @@ function CoachesList() {
 
   const getData = () => {
     axios
-      .get("/users")
+      .get("/coaches")
       .then((response) => {
         return response.data;
       })
@@ -47,7 +47,7 @@ function CoachesList() {
   }, []);
 
   useEffect(() => {
-    if (location.state.searchLocation !== "" && usersFetched) {
+    if (location.state !== null && location.state.searchLocation !== "" && usersFetched) {
       // Filter address from welcome page
       setUsers(
         users.filter((user) => {

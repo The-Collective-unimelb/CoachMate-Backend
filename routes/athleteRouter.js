@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const generalController = require("../controllers/generalController");
+const passport = require("passport");
 
 const athlete = require("../models/trainee");
 
@@ -16,6 +17,15 @@ router.get("/", (req, res) => {
     });
 });
 
-router.post("/register", generalController.register)
+router.post("/register", generalController.register);
+
+router.post(
+  "/login",
+  passport.authenticate("trainee-login", {
+    successRedirect: "/",
+    failureRedirect: "/coaches",
+    failureflash: true,
+  })
+);
 
 module.exports = router;
