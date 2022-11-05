@@ -6,7 +6,6 @@ import Button from "../UI/Button";
 import axios from "axios";
 
 function SignUpFormAthlete(props) {
-
   const navigate = useNavigate();
 
   const [state, setState] = useState({
@@ -46,9 +45,9 @@ function SignUpFormAthlete(props) {
       lastName: state.lastName,
       phone: state.phone,
       email: state.email,
-      password: state.password
+      password: state.password,
     };
-
+    let err = false;
     axios({
       url: "http://localhost:5000/athlete/register",
       method: "POST",
@@ -58,9 +57,15 @@ function SignUpFormAthlete(props) {
         console.log("Athlete data has been received!!");
         navigate("/login");
       })
-      .catch(() => {
+      .catch((e) => {
+        console.log(e)
+        err = true;
         alert("Internal Server Error!!");
       });
+
+    if (!err) {
+      navigate("/login")
+    }
   };
 
   return (
@@ -130,7 +135,7 @@ function SignUpFormAthlete(props) {
           />
         </div>
         <br />
-          <Button onClick={handleSubmit}>SIGN UP</Button>
+        <Button onClick={handleSubmit}>SIGN UP</Button>
       </div>
     </div>
   );

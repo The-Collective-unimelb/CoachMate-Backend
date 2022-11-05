@@ -40,7 +40,7 @@ function LoginForm(props) {
     if (state.role === "Athlete") role = "athlete";
 
     axios({
-      url: `http://localhost:5000/coaches/login`,
+      url: `http://localhost:5000/${role}/login`,
       method: "POST",
       data: payload,
     })

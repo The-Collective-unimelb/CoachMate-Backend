@@ -6,7 +6,6 @@ import Button from "../UI/Button";
 import axios from "axios";
 
 function SignUpFormCoach(props) {
-
   const navigate = useNavigate();
 
   const [state, setState] = useState({
@@ -54,7 +53,7 @@ function SignUpFormCoach(props) {
       email: state.email,
       password: state.password,
     };
-
+    let err = false;
     axios({
       url: "http://localhost:5000/coaches/register",
       method: "POST",
@@ -65,8 +64,13 @@ function SignUpFormCoach(props) {
         navigate("/login");
       })
       .catch(() => {
+        err = true;
         alert("Internal Server Error!!");
       });
+
+    if (!err) {
+      navigate("/login");
+    }
   };
 
   console.log(state);

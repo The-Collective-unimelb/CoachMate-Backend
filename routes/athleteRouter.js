@@ -23,8 +23,7 @@ router.post(
   "/login",
   passport.authenticate("trainee-login", {
     successRedirect: "/",
-    failureRedirect: "/coaches",
-    failureflash: true,
+    failureRedirect: "/fail",
   })
 );
 
