@@ -17,14 +17,20 @@ router.get("/", (req, res) => {
     });
 });
 
+router.get("/coach-dashboard", (req, res) => {
+  res.sendFile(
+    path.resolve(__dirname, "../", "coachmate-frontend", "build", "index.html")
+  );
+});
+
 router.post("/register", generalController.register);
 
 router.post(
   "/login",
   passport
     .authenticate("coach-login", {
-      failureRedirect: "/login",
-      failureflash: true,
+      successRedirect: "/contact",
+      failureRedirect: "/fail"
     })
 );
 

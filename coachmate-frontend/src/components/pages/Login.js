@@ -40,7 +40,7 @@ function LoginForm(props) {
     if (state.role === "Athlete") role = "athlete";
 
     axios({
-      url: `http://localhost:5000/${role}/login`,
+      url: `http://localhost:5000/coaches/login`,
       method: "POST",
       data: payload,
     })
@@ -56,7 +56,7 @@ function LoginForm(props) {
         console.log(`${state.role} data has been received!!`);
       })
       .catch(() => {
-        alert("Internal Server Error!!");
+        alert("Email or Password is incorrect");
       });
   };
 
