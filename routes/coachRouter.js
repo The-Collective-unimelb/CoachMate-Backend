@@ -21,10 +21,11 @@ router.post("/register", generalController.register);
 
 router.post(
   "/login",
-  passport.authenticate("coach-login", {
-    failureRedirect: "/login",
-    failureflash: true,
-  })
+  passport
+    .authenticate("coach-login", {
+      failureRedirect: "/login",
+      failureflash: true,
+    })
 );
 
 module.exports = router;
