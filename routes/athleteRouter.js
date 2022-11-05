@@ -19,13 +19,15 @@ router.get("/", (req, res) => {
 
 router.post("/register", generalController.register);
 
-router.post(
-  "/login",
-  passport.authenticate("trainee-login", {
-    successRedirect: "/",
-    failureRedirect: "/coaches",
-    failureflash: true,
-  })
-);
+router.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+  const user = await User.findOne({ username: username});
+  const validPw = await bcrypt.compare(password, user.password);
+  if (validPw) {
+    Console.log("Authenticated")
+  } else {
+    Console.log("Wrong password or username");
+  }
+})
 
 module.exports = router;
