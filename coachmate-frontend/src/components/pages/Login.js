@@ -49,12 +49,12 @@ function LoginForm(props) {
         ctx.setRole(state.role);
         ctx.setIsLoggedIn(true);
         if (state.role === "Coach") {
-          // navigate("/coach-dashboard");
           log(role);
+          navigate("/coach-dashboard");
         }
         if (state.role === "Athlete") {
-          // navigate("/");
           log(role);
+          navigate("/");
         }
         console.log(`${state.role} data has been received!!`);
       })
@@ -65,7 +65,9 @@ function LoginForm(props) {
 
   function log(role) {
     axios
-      .get(`http://localhost:5000/${role}/getDetails`, { withCredentials: true })
+      .get(`http://localhost:5000/${role}/getDetails`, {
+        withCredentials: true,
+      })
       .then((res) => {
         console.log(res);
       })

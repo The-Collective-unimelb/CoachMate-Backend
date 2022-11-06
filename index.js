@@ -14,8 +14,6 @@ const passport = require("passport");
 const flash = require("express-flash");
 const session = require("express-session");
 
-const MongoStore = require("connect-mongo");
-
 require("./passport")(passport);
 
 app.use(flash());
@@ -25,7 +23,6 @@ app.use(
     resave: true,
     saveUninitialized: true,
     cookie: { maxAge: 900000 },
-    store:MongoStore.create({mongoUrl:process.env.MONGO_URL}),
   })
 );
 
