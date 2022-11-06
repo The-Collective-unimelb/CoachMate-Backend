@@ -27,11 +27,33 @@ router.post("/register", generalController.register);
 
 router.post(
   "/login",
-  passport
-    .authenticate("coach-login", {
-      successRedirect: "/contact",
-      failureRedirect: "/fail"
-    })
+  passport.authenticate("coach-login", {
+    successRedirect: "/contact",
+    failureRedirect: "/fail",
+  })
 );
+
+router.get("/getDetails", (req, res) => {
+  // athlete.findOne(
+  //   { email: req.session.passport.user.email },
+  //   function (err, user) {
+  //     if (err) console.log(err);
+
+  //     const { first_name, last_name } = user;
+
+  //     res.status(200).send({
+  //       user,
+  //     });
+  //   }
+  // );
+  res.send(req.user);
+});
+
+router.post("/logout", (req, res) => {
+  if (req.isAuthenticated()) {
+    req.logout();
+    res.sendStatus(200);
+  }
+});
 
 module.exports = router;

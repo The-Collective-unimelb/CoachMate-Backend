@@ -4,11 +4,28 @@ import classes from "./Header.module.css";
 import coachmateFlat from "../../assets/CoachmateFlat.png";
 
 import { AuthContext } from "../../App";
+import axios from "axios";
 
 function Header() {
   const ctx = useContext(AuthContext);
 
   function handleLogout() {
+    let role;
+    if (ctx.role === "Coach") role = "coaches";
+    if (ctx.role === "Athlete") role = "athlete";
+
+    axios
+      .post(`http://localhost:5000/${role}/logout`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log("WTF");
+      });
+
     ctx.setIsLoggedIn(false);
     ctx.setRole("");
   }

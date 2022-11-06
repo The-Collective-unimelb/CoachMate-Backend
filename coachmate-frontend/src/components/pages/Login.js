@@ -43,15 +43,18 @@ function LoginForm(props) {
       url: `http://localhost:5000/${role}/login`,
       method: "POST",
       data: payload,
+      withCredentials: true,
     })
       .then(() => {
         ctx.setRole(state.role);
         ctx.setIsLoggedIn(true);
         if (state.role === "Coach") {
-          navigate("/coach-dashboard");
+          // navigate("/coach-dashboard");
+          log(role);
         }
         if (state.role === "Athlete") {
-          navigate("/");
+          // navigate("/");
+          log(role);
         }
         console.log(`${state.role} data has been received!!`);
       })
@@ -59,6 +62,18 @@ function LoginForm(props) {
         alert("Email or Password is incorrect");
       });
   };
+
+  function log(role) {
+    axios
+      .get(`http://localhost:5000/${role}/getDetails`, { withCredentials: true })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log("WTF");
+      });
+  }
 
   return (
     <div className={classes.loginForm}>

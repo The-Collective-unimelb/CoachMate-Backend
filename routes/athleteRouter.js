@@ -27,4 +27,28 @@ router.post(
   })
 );
 
+router.get("/getDetails", (req, res) => {
+  // athlete.findOne(
+  //   { email: req.session.passport.user.email },
+  //   function (err, user) {
+  //     if (err) console.log(err);
+
+  //     const { first_name, last_name } = user;
+
+  //     res.status(200).send({
+  //       user,
+  //     });
+  //   }
+  // );
+  res.send(req.user);
+});
+
+router.post("/logout", (req, res) => {
+  console.log(req.isAuthenticated());
+  if (req.isAuthenticated()) {
+    req.logout();
+    res.sendStatus(200);
+  }
+});
+
 module.exports = router;
