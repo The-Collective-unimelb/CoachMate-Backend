@@ -53,24 +53,26 @@ function SignUpFormCoach(props) {
       email: state.email,
       password: state.password,
     };
-    let err = false;
+    //let err = false;
     axios({
       url: "http://localhost:5000/coaches/register",
       method: "POST",
       data: payload,
     })
-      .then(() => {
+      .then((response) => {
         console.log("Coach data has been received!!");
+        console.log(JSON.stringify(response.data.email));
         navigate("/login");
+
       })
       .catch(() => {
-        err = true;
+        //err = true;
         alert("Internal Server Error!!");
       });
 
-    if (!err) {
-      navigate("/login");
-    }
+    //if (!err) {
+      //navigate("/login");
+    //}
   };
 
   console.log(state);

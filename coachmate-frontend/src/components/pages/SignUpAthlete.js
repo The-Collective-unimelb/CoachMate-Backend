@@ -47,7 +47,6 @@ function SignUpFormAthlete(props) {
       email: state.email,
       password: state.password,
     };
-    let err = false;
     axios({
       url: "http://localhost:5000/athlete/register",
       method: "POST",
@@ -59,13 +58,9 @@ function SignUpFormAthlete(props) {
       })
       .catch((e) => {
         console.log(e)
-        err = true;
         alert("Internal Server Error!!");
       });
 
-    if (!err) {
-      navigate("/login")
-    }
   };
 
   return (

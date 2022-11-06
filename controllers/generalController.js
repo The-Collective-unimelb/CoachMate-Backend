@@ -33,6 +33,8 @@ exports.register = async (req, res) => {
         } else {
           console.log("Data has been saved in MongoDB");
           req.flash("successfulMessage", "Successfully Registered");
+          
+          res.send(newTrainee);
         }
       });
 
@@ -56,7 +58,7 @@ exports.register = async (req, res) => {
         timeSlot: [],
       });
 
-      console.log(newCoach)
+      
 
       await newCoach.save((error) => {
         if (error) {
@@ -66,6 +68,9 @@ exports.register = async (req, res) => {
         } else {
           console.log("Data has been saved in MongoDB");
           req.flash("successfulMessage", "Successfully Registered");
+          //return(newCoach);
+          console.log(newCoach);
+          res.send(newCoach);
         }
       });
     }
