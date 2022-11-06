@@ -7,6 +7,8 @@ import axios from "axios";
 import { useContext } from "react";
 import { AuthContext } from "../../App";
 
+const baseUrl = process.env.BASE_URL || "http://localhost:5000"
+
 function LoginForm(props) {
   const navigate = useNavigate();
   const ctx = useContext(AuthContext);
@@ -40,7 +42,7 @@ function LoginForm(props) {
     if (state.role === "Athlete") role = "athlete";
 
     axios({
-      url: `http://localhost:5000/${role}/login`,
+      url: baseUrl + `/${role}/login`,
       method: "POST",
       data: payload,
       withCredentials: true,
