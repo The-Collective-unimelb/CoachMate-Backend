@@ -34,7 +34,7 @@ function CoachesList() {
       .then((data) => {
         setUsers(data);
         setUsersFetched(true);
-        console.log(data);
+        //console.log(data);
         console.log("Data has been received!!");
       })
       .catch(() => {
