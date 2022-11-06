@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const passportLocalMongoose = require('passport-local-mongoose')
 
 var TraineeSchema = new Schema({
     email: {
@@ -43,5 +44,6 @@ var TraineeSchema = new Schema({
     ],
 })
 
+TraineeSchema.plugin(passportLocalMongoose)
 const Trainee = mongoose.model('Trainee', TraineeSchema);
 module.exports = Trainee;

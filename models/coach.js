@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const passportLocalMongoose = require('passport-local-mongoose')
 
 var CoachSchema = new Schema({
   email: {
@@ -84,6 +85,8 @@ var CoachSchema = new Schema({
     },
   ],
 });
+
+CoachSchema.plugin(passportLocalMongoose)
 
 const Coach = mongoose.model("Coach", CoachSchema);
 module.exports = Coach;

@@ -12,9 +12,9 @@ module.exports = (passport) => {
 
   passport.deserializeUser((login, done) => {
     console.log("Deserializing")
-    if (login.role === "athlete") {
+    if (login.role === "trainee") {
       Trainee.findById(login._id, (err, user) => {
-        return done(err, { ...user.toObject(), role: "athlete" });
+        return done(err, { ...user.toObject(), role: "trainee" });
       });
     } else if (login.role === "coach") {
       Coach.findById(login._id, (err, user) => {

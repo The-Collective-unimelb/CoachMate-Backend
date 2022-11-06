@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import classes from "./CoachDashboard.module.css";
 import pfp from "../../assets/pfp-blue.jpg";
+import axios from "axios";
 
 import { AuthContext } from "../../App";
 
