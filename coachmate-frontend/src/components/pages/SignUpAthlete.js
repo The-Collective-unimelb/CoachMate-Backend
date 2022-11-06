@@ -5,6 +5,16 @@ import classes from "./Signup.module.css";
 import Button from "../UI/Button";
 import axios from "axios";
 
+var baseUrl = process.env.BASE_URL || "http://localhost:5000";
+
+if (
+  process.env.NODE_ENV === "production" ||
+  process.env.NODE_ENV === "staging"
+) {
+  baseUrl = "https://coachmate-2022.herokuapp.com";
+}
+
+
 function SignUpFormAthlete(props) {
   const navigate = useNavigate();
 
@@ -48,7 +58,7 @@ function SignUpFormAthlete(props) {
       password: state.password,
     };
     axios({
-      url: "http://localhost:5000/athlete/register",
+      url: baseUrl + "/athlete/register",
       method: "POST",
       data: payload,
     })

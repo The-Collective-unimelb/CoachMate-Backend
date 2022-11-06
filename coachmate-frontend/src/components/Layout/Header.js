@@ -6,6 +6,16 @@ import coachmateFlat from "../../assets/CoachmateFlat.png";
 import { AuthContext } from "../../App";
 import axios from "axios";
 
+var baseUrl = process.env.BASE_URL || "http://localhost:5000";
+
+if (
+  process.env.NODE_ENV === "production" ||
+  process.env.NODE_ENV === "staging"
+) {
+  baseUrl = "https://coachmate-2022.herokuapp.com";
+}
+
+
 function Header() {
   const ctx = useContext(AuthContext);
 
@@ -15,7 +25,7 @@ function Header() {
     if (ctx.role === "Athlete") role = "athlete";
 
     axios
-      .post(`http://localhost:5000/${role}/logout`, {
+      .post(baseUrl + `/${role}/logout`, {
         withCredentials: true,
       })
       .then((res) => {

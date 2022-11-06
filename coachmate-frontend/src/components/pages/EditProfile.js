@@ -4,6 +4,16 @@ import { Link, useNavigate} from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
+var baseUrl = process.env.BASE_URL || "http://localhost:5000";
+
+if (
+  process.env.NODE_ENV === "production" ||
+  process.env.NODE_ENV === "staging"
+) {
+  baseUrl = "https://coachmate-2022.herokuapp.com";
+}
+
+
 function EditProfile() {
   
   const navigate = useNavigate();
@@ -58,7 +68,7 @@ function EditProfile() {
     };
 
     axios({
-      url: "http://localhost:5000/coaches/register",
+      url: baseUrl + "/coaches/register",
       method: "POST",
       data: payload,
     })

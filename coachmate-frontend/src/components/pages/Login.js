@@ -74,7 +74,7 @@ function LoginForm(props) {
 
   function log(role) {
     axios
-      .get(`http://localhost:5000/${role}/getDetails`, {
+      .get(baseUrl + `/${role}/getDetails`, {
         withCredentials: true,
       })
       .then((res) => {
