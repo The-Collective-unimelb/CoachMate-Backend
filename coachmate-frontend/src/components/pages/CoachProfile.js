@@ -23,6 +23,10 @@ function CoachProfile() {
             className={classes["profile-pic"]}
             alt="profile pic"
           ></img>
+          <br></br>
+          <Link to="/edit-profile" className={classes["topbar-text"]}>
+            EDIT PROFILE
+          </Link>
         </div>
         <div className={classes["profile-details-column"]}>
           <p>
