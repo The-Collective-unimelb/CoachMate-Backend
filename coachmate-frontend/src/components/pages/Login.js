@@ -7,7 +7,14 @@ import axios from "axios";
 import { useContext } from "react";
 import { AuthContext } from "../../App";
 
-const baseUrl = process.env.BASE_URL || "http://localhost:5000"
+const baseUrl = process.env.BASE_URL || "http://localhost:5000";
+
+if (
+  process.env.NODE_ENV === "production" ||
+  process.env.NODE_ENV === "staging"
+) {
+  baseUrl = "https://coachmate-2022.herokuapp.com";
+}
 
 function LoginForm(props) {
   const navigate = useNavigate();
