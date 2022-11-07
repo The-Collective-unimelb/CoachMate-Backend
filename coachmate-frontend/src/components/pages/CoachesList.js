@@ -63,7 +63,7 @@ function CoachesList() {
         })
       );
     }
-  }, [usersFetched]);
+  }, [usersFetched, location.state, users]);
 
   const minDistance = 10;
   const maxPrice = 100;
@@ -178,7 +178,7 @@ function CoachesList() {
               avail={coach.avail}
               location={coach.address}
               onClick={() => {
-                navigate("/schedule", { state: { coach: coach } });
+                navigate("/coach-profile", { state: { coach: coach } });
               }}
             />
           );
