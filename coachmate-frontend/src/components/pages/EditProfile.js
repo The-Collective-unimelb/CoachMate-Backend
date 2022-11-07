@@ -60,8 +60,9 @@ function EditProfile() {
       })
       .catch((err) => {
         console.log(err);
-        console.log("WTF");
+        console.log("edit error");
       });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const initState = () => {

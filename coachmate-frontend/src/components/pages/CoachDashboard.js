@@ -19,7 +19,12 @@ function CoachDashboard() {
 
   return (
     <div className={classes["vertical-flex"]}>
-      <h1>DASHBOARD</h1>
+      <div className={classes.topbar}>
+        <Link to="/coach-dashboard" className={classes["topbar-text"]}>
+          DASHBOARD
+        </Link>
+      </div>
+      <h1 className={classes.heading}>DASHBOARD</h1>
       <div className={classes["dashboard-grid-container"]}>
         <div className={classes["profile-column"]}>
           <div className={classes["profile-box"]}>

@@ -74,8 +74,8 @@ function Header() {
               </Link>
             )}
             {ctx.isLoggedIn && ctx.role === "Coach" && (
-              <Link to="coach-booking" className={classes["nav-item"]}>
-                MY SCHEDULE
+              <Link to="coach-dashboard" className={classes["nav-item"]}>
+                MY DASHBOARD
               </Link>
             )}
           </li>
