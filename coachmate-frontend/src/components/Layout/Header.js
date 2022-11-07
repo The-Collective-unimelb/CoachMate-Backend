@@ -33,7 +33,7 @@ function Header() {
       })
       .catch((err) => {
         console.log(err);
-        console.log("WTF");
+        console.log("Fail logout?");
       });
 
     ctx.setIsLoggedIn(false);
