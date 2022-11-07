@@ -93,7 +93,7 @@ function EditProfile() {
       age: state.age,
       address: state.address,
       email: state.email,
-      password: state.password,
+      // password: state.password,
       aboutMe: state.aboutMe,
       skills: state.skills,
       qualifications: state.qualifications,
