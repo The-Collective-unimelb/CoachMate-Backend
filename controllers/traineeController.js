@@ -2,10 +2,10 @@ const Coach = require('../models/coach')
 const Booking = require('../models/booking')
 const Trainee = require('../models/trainee')
 
-exports.bookSession = async (req, res) => {
+exports.bookSession = async (req) => {
     const athleteId = req.session.passport.user._id
     const athlete = await Trainee.findById(athleteId)
-    const coachId = req.body.coachId
+    const coachId = (await Coach.findOne({email: req.body.coachEmail}))._id
     const coach = await Coach.findById(coachId)
     const sessionTime = req.body.sessionTime
     const sessionDate = req.body.sessionDate

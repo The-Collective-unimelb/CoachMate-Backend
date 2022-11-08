@@ -45,7 +45,7 @@ function CoachSchedule(props) {
       <NoPage text="Please select a coach " linkText="here" to="/coaches" />
     );
   } else {
-    console.log(location.state);
+    // console.log(location.state);
   }
 
   function handleSelectDate(newDate) {
@@ -69,16 +69,19 @@ function CoachSchedule(props) {
     if (sessionType === "Private") price = location.state.coach.privatePrice;
 
     const payload = {
-      coachId: location.state.coach._id,
+      coachEmail: location.state.coach.email,
       sessionTime: selectedTime,
       sessionDate: selectedDate,
       location: location.state.coach.address,
-      price: price,
+      price: 10,
     };
+    console.log("payload", payload)
+
     axios({
       url: baseUrl + "/athlete/bookSession",
       method: "POST",
       data: payload,
+      withCredentials: true
     })
       .then((res) => {
         console.log(res)
@@ -96,7 +99,7 @@ function CoachSchedule(props) {
         });
       })
       .catch((e) => {
-        console.log(e.response.data);
+        console.log(e.response);
       });
   }
 

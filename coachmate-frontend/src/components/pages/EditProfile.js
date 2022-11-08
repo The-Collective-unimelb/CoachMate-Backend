@@ -103,12 +103,13 @@ function EditProfile() {
       groupPrice: +state.groupPrice,
     };
 
-    log('coaches')
+    log("coaches");
 
     axios({
       url: baseUrl + "/coaches/update",
       method: "POST",
       data: payload,
+      withCredentials: true,
     })
       .then((res) => {
         // console.log("updated", res);
@@ -137,7 +138,7 @@ function EditProfile() {
         withCredentials: true,
       })
       .then((res) => {
-        console.log("LOGG")
+        console.log("LOGG");
         console.log(res);
       })
       .catch((err) => {

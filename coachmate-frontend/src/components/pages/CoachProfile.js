@@ -100,7 +100,7 @@ function CoachProfile() {
           )}
           {ctx.isLoggedIn && ctx.role === "Athlete" && (
             <Button>
-              <Link to="/schedule" state={{ coach: details }}>
+              <Link to="/schedule" state={{ coach: location.state.coach }}>
                 BOOK NOW
               </Link>
             </Button>
