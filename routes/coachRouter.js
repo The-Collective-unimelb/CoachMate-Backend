@@ -4,7 +4,8 @@ const generalController = require("../controllers/generalController");
 const passport = require("passport");
 
 const coach = require("../models/coach");
-const utils = require('../utils')
+const utils = require('../utils');
+const { findOne } = require("../models/coach");
 
 router.get("/", (req, res) => {
   coach
@@ -31,6 +32,9 @@ router.post(
   passport.authenticate("coach-login", {
     successRedirect: "/contact",
     failureRedirect: "/fail",
+  },
+  (req, res) => {
+    user = coach.findOne({ email: req.email })
   })
 );
 
@@ -55,6 +59,7 @@ router.post("/logout", (req, res) => {
     req.logout();
     res.sendStatus(200);
   }
+  user = null
 });
 
 router.get("/:id", utils.coachIsLoggedIn, function (req, res, next) {

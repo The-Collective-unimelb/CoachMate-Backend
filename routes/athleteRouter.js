@@ -26,6 +26,9 @@ router.post(
   passport.authenticate("trainee-login", {
     successRedirect: "/",
     failureRedirect: "/fail",
+  },
+  (req, res) => {
+    user = athlete.findOne({ email: req.email })
   })
 );
 
@@ -51,6 +54,7 @@ router.post("/logout", (req, res) => {
     req.logout();
     res.sendStatus(200);
   }
+  user = null
 });
 
 router.post("/bookSession", utils.athleteIsLoggedIn, traineeController.bookSession);
