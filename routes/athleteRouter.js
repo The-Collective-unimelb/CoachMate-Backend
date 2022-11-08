@@ -23,18 +23,15 @@ router.post("/register", generalController.register);
 
 router.post(
   "/login",
-  passport.authenticate(
-    "trainee-login",
-    {
-      successRedirect: "/",
-      failureRedirect: "/fail",
-    },
-    async (req, res) => {
-      console.log(res);
-      user._id = res._id;
-      user.role = "trainee";
-    }
-  )
+  passport.authenticate("trainee-login", {
+    successRedirect: "/",
+    failureRedirect: "/fail",
+  }),
+  async (req, res) => {
+    console.log(res);
+    user._id = res._id;
+    user.role = "trainee";
+  }
 );
 
 router.get("/getDetails", utils.athleteIsLoggedIn, (req, res) => {
