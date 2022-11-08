@@ -3,6 +3,7 @@ const router = express.Router();
 const generalController = require("../controllers/generalController");
 const traineeController = require("../controllers/traineeController");
 const passport = require("passport");
+const utils = require('../utils')
 
 const athlete = require("../models/trainee");
 
@@ -28,7 +29,7 @@ router.post(
   })
 );
 
-router.get("/getDetails", (req, res) => {
+router.get("/getDetails", utils.athleteIsLoggedIn, (req, res) => {
   // athlete.findOne(
   //   { email: req.session.passport.user.email },
   //   function (err, user) {
@@ -52,9 +53,9 @@ router.post("/logout", (req, res) => {
   }
 });
 
-router.post("/bookSession", traineeController.bookSession);
+router.post("/bookSession", utils.athleteIsLoggedIn, traineeController.bookSession);
 
-router.post("/update", (req, res) => {
+router.post("/update", utils.athleteIsLoggedIn, (req, res) => {
   console.log("req.body", req.body);
   var _id = req.body._id;
   var data = {

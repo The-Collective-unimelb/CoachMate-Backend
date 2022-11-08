@@ -4,6 +4,7 @@ const generalController = require("../controllers/generalController");
 const passport = require("passport");
 
 const coach = require("../models/coach");
+const utils = require('../utils')
 
 router.get("/", (req, res) => {
   coach
@@ -17,7 +18,7 @@ router.get("/", (req, res) => {
     });
 });
 
-router.get("/coach-dashboard", (req, res) => {
+router.get("/coach-dashboard", utils.coachIsLoggedIn, (req, res) => {
   res.sendFile(
     path.resolve(__dirname, "../", "coachmate-frontend", "build", "index.html")
   );
@@ -33,7 +34,7 @@ router.post(
   })
 );
 
-router.get("/getDetails", (req, res) => {
+router.get("/getDetails", utils.coachIsLoggedIn, (req, res) => {
   // athlete.findOne(
   //   { email: req.session.passport.user.email },
   //   function (err, user) {
@@ -56,14 +57,14 @@ router.post("/logout", (req, res) => {
   }
 });
 
-router.get("/:id", function (req, res, next) {
+router.get("/:id", utils.coachIsLoggedIn, function (req, res, next) {
   coach.findById(req.params.id, function (err, data) {
     if (err) return next(err);
     res.json(data);
   });
 });
 
-router.post("/update", (req, res) => {
+router.post("/update", utils.coachIsLoggedIn, (req, res) => {
   console.log("req.body", req.body);
   var _id = req.body._id;
   var data = {
