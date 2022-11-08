@@ -3,7 +3,7 @@ const Booking = require('../models/booking')
 const Trainee = require('../models/trainee')
 
 exports.bookSession = async (req, res) => {
-    const athleteId = req.user._id
+    const athleteId = req.session.passport.user._id
     const athlete = await Trainee.findById(athleteId)
     const coachId = req.body.coachId
     const coach = await Coach.findById(coachId)
@@ -28,7 +28,7 @@ exports.bookSession = async (req, res) => {
 }
 
 exports.updateProfile = async (req, res) => {
-    const athlete = await Trainee.findById(req.user._id)
+    const athlete = await Trainee.findById(req.session.passport.user._id)
     const body = req.body
     athlete.firstName = body.firstName
     athlete.lastName = body.lastName
@@ -46,12 +46,12 @@ exports.updateProfile = async (req, res) => {
 }
 
 exports.viewBookings = async (req, res) => {
-    const athleteId = req.user._id
+    const athleteId = req.session.passport.user._id
     return await Booking.find({trainee: athleteId})
 }
 
 exports.cancelBooking = async (req, res) => {
-    const athlete = await Coach.findById(req.user._id)
+    const athlete = await Coach.findById(req.session.passport.user._id)
     const booking = await athlete.bookings.findById(req.body.bookingId)
 
     if (booking) {
