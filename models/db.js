@@ -3,8 +3,6 @@ const bcrypt = require('bcrypt')
 const mongoose = require('mongoose')
 const Coach = require('./coach')
 const Trainee = require('./trainee')
-const TimeSlot = require('./timeslot')
-const Booking = require('./booking')
 
 async function connectDb() {
     try {
