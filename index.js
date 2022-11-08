@@ -34,7 +34,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-user = null
+user = {id: null, role: null}
 
 const generalRouter = require("./routes/generalRouter");
 app.use("/", generalRouter);

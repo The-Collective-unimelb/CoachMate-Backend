@@ -27,8 +27,9 @@ router.post(
     successRedirect: "/",
     failureRedirect: "/fail",
   },
-  (req, res) => {
-    user = athlete.findOne({ email: req.email })
+  async (req, res) => {
+    user._id = await athlete.findOne({ email: req.email })._id
+    user.role = 'trainee'
   })
 );
 
@@ -54,7 +55,7 @@ router.post("/logout", (req, res) => {
     req.logout();
     res.sendStatus(200);
   }
-  user = null
+  user.id = null
 });
 
 router.post("/bookSession", utils.athleteIsLoggedIn, traineeController.bookSession);

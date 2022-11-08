@@ -33,8 +33,9 @@ router.post(
     successRedirect: "/contact",
     failureRedirect: "/fail",
   },
-  (req, res) => {
-    user = coach.findOne({ email: req.email })
+  async (req, res) => {
+    user.id = await coach.findOne({ email: req.email })._id
+    user.role = 'coach'
   })
 );
 
@@ -59,7 +60,7 @@ router.post("/logout", (req, res) => {
     req.logout();
     res.sendStatus(200);
   }
-  user = null
+  user.id = null
 });
 
 router.get("/:id", utils.coachIsLoggedIn, function (req, res, next) {
