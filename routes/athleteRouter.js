@@ -3,7 +3,7 @@ const router = express.Router();
 const generalController = require("../controllers/generalController");
 const traineeController = require("../controllers/traineeController");
 const passport = require("passport");
-const utils = require('../utils')
+const utils = require("../utils");
 
 const athlete = require("../models/trainee");
 
@@ -23,14 +23,18 @@ router.post("/register", generalController.register);
 
 router.post(
   "/login",
-  passport.authenticate("trainee-login", {
-    successRedirect: "/",
-    failureRedirect: "/fail",
-  },
-  async (req, res) => {
-    user._id = await athlete.findOne({ email: req.email })._id
-    user.role = 'trainee'
-  })
+  passport.authenticate(
+    "trainee-login",
+    {
+      successRedirect: "/",
+      failureRedirect: "/fail",
+    },
+    async (req, res) => {
+      console.log(res);
+      user._id = res._id;
+      user.role = "trainee";
+    }
+  )
 );
 
 router.get("/getDetails", utils.athleteIsLoggedIn, (req, res) => {
@@ -52,13 +56,22 @@ router.get("/getDetails", utils.athleteIsLoggedIn, (req, res) => {
 router.post("/logout", (req, res) => {
   console.log(req.isAuthenticated());
   if (req.isAuthenticated()) {
-    req.logout();
+    req.logout(function (err) {
+      if (err) {
+        return next(err);
+      }
+      res.redirect("/");
+    });
     res.sendStatus(200);
   }
-  user.id = null
+  user.id = null;
 });
 
-router.post("/bookSession", utils.athleteIsLoggedIn, traineeController.bookSession);
+router.post(
+  "/bookSession",
+  utils.athleteIsLoggedIn,
+  traineeController.bookSession
+);
 
 router.post("/update", utils.athleteIsLoggedIn, (req, res) => {
   console.log("req.body", req.body);
