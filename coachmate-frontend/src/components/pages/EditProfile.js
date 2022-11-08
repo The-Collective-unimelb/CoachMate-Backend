@@ -22,7 +22,7 @@ function EditProfile() {
     lastName: "",
     phone: "",
     gender: "Male",
-    age: "",
+    age: 0,
     address: "",
     email: "",
     password: "",
@@ -30,8 +30,8 @@ function EditProfile() {
     skills: "",
     qualifications: "",
     contactInfo: "",
-    privatePrice: "",
-    groupPrice: "",
+    privatePrice: 0,
+    groupPrice: 0,
   });
   useEffect(() => {
     axios
@@ -62,7 +62,7 @@ function EditProfile() {
         console.log(err);
         console.log("edit error");
       });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const initState = () => {
@@ -91,7 +91,7 @@ function EditProfile() {
       lastName: state.lastName,
       phone: state.phone,
       gender: state.gender,
-      age: state.age,
+      age: +state.age,
       address: state.address,
       email: state.email,
       // password: state.password,
@@ -99,9 +99,11 @@ function EditProfile() {
       skills: state.skills,
       qualifications: state.qualifications,
       contactInfo: state.contactInfo,
-      privatePrice: state.privatePrice,
-      groupPrice: state.groupPrice,
+      privatePrice: +state.privatePrice,
+      groupPrice: +state.groupPrice,
     };
+
+    log('coaches')
 
     axios({
       url: baseUrl + "/coaches/update",
@@ -109,7 +111,7 @@ function EditProfile() {
       data: payload,
     })
       .then((res) => {
-        console.log("updated", res);
+        // console.log("updated", res);
         Swal.fire({
           title: "Success!",
           text: "Your details have been sucessfully updated.",
@@ -129,8 +131,20 @@ function EditProfile() {
       });
   };
 
-  console.log(state);
-
+  function log(role) {
+    axios
+      .get(baseUrl + `/${role}/getDetails`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log("LOGG")
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log("log err");
+      });
+  }
   return (
     <div className={classes["vertical-flex"]}>
       <div className={classes.topbar}>
@@ -226,6 +240,8 @@ function EditProfile() {
             onChange={handleChange}
           />
           <label>SOCIALS</label>
+          <br />
+          <br />
           <textarea
             className={classes["name"]}
             name="contactInfo"
@@ -234,7 +250,11 @@ function EditProfile() {
             value={state.contactInfo}
             onChange={handleChange}
           />
+          <br />
+          <br />
           <label>ABOUT ME</label>
+          <br />
+          <br />
           <textarea
             className={classes["name"]}
             name="aboutMe"
@@ -243,7 +263,11 @@ function EditProfile() {
             value={state.aboutMe}
             onChange={handleChange}
           />
+          <br />
+          <br />
           <label>SKILLS</label>
+          <br />
+          <br />
           <textarea
             className={classes["name"]}
             name="skills"
@@ -252,7 +276,11 @@ function EditProfile() {
             value={state.skills}
             onChange={handleChange}
           />
+          <br />
+          <br />
           <label>QUALIFICATIONS</label>
+          <br />
+          <br />
           <textarea
             className={classes["name"]}
             name="qualifications"
@@ -261,6 +289,8 @@ function EditProfile() {
             value={state.qualifications}
             onChange={handleChange}
           />
+          <br />
+          <br />
           <label>PRICE FOR PRIVATE SESSIONS</label>
           <input
             className={classes["name"]}
