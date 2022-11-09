@@ -64,7 +64,7 @@ img {
 .topbar {
   display: flex;
   align-self: flex-start;
-  font-size: 15px;
+  font-size: 24px;
   padding-bottom: 40px;
   padding-top: 20px;
 }

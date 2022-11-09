@@ -129,7 +129,8 @@ function SignUpFormCoach(props) {
           <br />
           <br />
           <select
-            className={classes.entries}
+            className={`${classes.entries}`}
+            style={{fontSize:"inherit"}}
             name="gender"
             value={state.gender}
             onChange={handleChange}
