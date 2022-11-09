@@ -3,14 +3,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import classes from "./AthleteBooking.module.css";
 
-
 function CoachBookings() {
-
   const [bookings, setBookings] = useState([]);
 
   const getData = () => {
     axios
-      .get("/bookings")
+      .get("/bookings", { withCredentials: true })
       .then((response) => {
         return response.data;
       })
@@ -24,72 +22,81 @@ function CoachBookings() {
       });
   };
 
-  
+  useEffect(() => {
+    getData();
+  }, []);
+
   const displayPendingData = () => {
     if (bookings.length < 0) return null;
     bookings.map((booking) => {
       if (booking.status === "Pending") {
-      return (
+        return (
           <div className={classes["history-row"]}>
-              <div>{booking.session}</div>
-              {booking.trainees.map((athlete)=>{
-                <div>{athlete.firstName} {athlete.lastName}
-                </div>
-              })
-              }
-              <div>{booking.sessionType}</div>
-              <div className={classes["data-status"]}>
-                <button> Accept</button>
-                <button> Cancel</button>
-              </div>
-            </div>
-      )
-      }}
-
-      )
-      }
-  
-      const displayBookedData = () => {
-        if (bookings.length < 0) return null;
-        bookings.map((booking) => {
-          if (booking.status === "Booked") {
-          return (
-              <div className={classes["history-row"]}>
-                  <div>{booking.session}</div>
-                  {booking.trainees.map((athlete)=>{
-                    <div>{athlete.firstName} {athlete.lastName}
-                    </div>
-                  })
-                  }
-                  <div>{booking.sessionType}</div>
-                  <div className={classes["data-status"]}>
-                    <button> Cancel</button>
-                  </div>
-                </div>
-          )
-          }}
-    
-          )
-          }
-          const displayPastData = () => {
-            if (bookings.length < 0) return null;
-            bookings.map((booking) => {
-              if (booking.status === "Completed" || booking.status === "Cancelled"){ 
+            <div>{booking.session}</div>
+            {booking.trainees.map((athlete) => {
               return (
-                  <div className={classes["history-row"]}>
-                      <div>{booking.session}</div>
-                      {booking.trainees.map((athlete)=>{
-                        <div>{athlete.firstName} {athlete.lastName}
-                        </div>
-                      })
-                      }
-                      <div>{booking.sessionType}</div>
-                    </div>
-              )
-              }}
-        
-              )
-              }    
+                <div>
+                  {athlete.firstName} {athlete.lastName}
+                </div>
+              );
+            })}
+            <div>{booking.sessionType}</div>
+            <div className={classes["data-status"]}>
+              <button> Accept</button>
+              <button> Cancel</button>
+            </div>
+          </div>
+        );
+      }
+      return null;
+    });
+  };
+
+  const displayBookedData = () => {
+    if (bookings.length < 0) return null;
+    bookings.map((booking) => {
+      if (booking.status === "Booked") {
+        return (
+          <div className={classes["history-row"]}>
+            <div>{booking.session}</div>
+            {booking.trainees.map((athlete) => {
+              return (
+                <div>
+                  {athlete.firstName} {athlete.lastName}
+                </div>
+              );
+            })}
+            <div>{booking.sessionType}</div>
+            <div className={classes["data-status"]}>
+              <button> Cancel</button>
+            </div>
+          </div>
+        );
+      }
+      return null;
+    });
+  };
+  const displayPastData = () => {
+    if (bookings.length < 0) return null;
+    bookings.map((booking) => {
+      if (booking.status === "Completed" || booking.status === "Cancelled") {
+        return (
+          <div className={classes["history-row"]}>
+            <div>{booking.session}</div>
+            {booking.trainees.map((athlete) => {
+              return (
+                <div>
+                  {athlete.firstName} {athlete.lastName}
+                </div>
+              );
+            })}
+            <div>{booking.sessionType}</div>
+          </div>
+        );
+      }
+      return null;
+    });
+  };
   return (
     <div className={classes["vertical-flex"]}>
       <div className={classes.topbar}>
@@ -115,14 +122,13 @@ function CoachBookings() {
 
       <h1>NEW</h1>
       <div>{displayPendingData()}</div>
-      
+
       <h1>UPCOMING</h1>
-      
+
       <div>{displayBookedData()}</div>
-      
 
       <h1>PAST</h1>
-      
+
       <div>{displayPastData()}</div>
     </div>
   );
