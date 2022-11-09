@@ -65,14 +65,9 @@ router.get("/getDetails", (req, res) => {
 
 router.post("/logout", (req, res) => {
   console.log(USER.id);
-  if (req.isAuthenticated()) {
-    req.logout(function (err) {
-      if (err) {
-        return next(err);
-      }
-      res.redirect("/");
-    });
-    res.sendStatus(200);
+  if (USER) {
+    USER = null
+    res.redirect("/")
   }
 });
 
