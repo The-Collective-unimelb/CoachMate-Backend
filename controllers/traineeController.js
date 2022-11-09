@@ -54,12 +54,12 @@ exports.updateProfile = async (req, res) => {
 }
 
 exports.viewBookings = async (req, res) => {
-    const athleteId = req.session.passport.user._id
+    const athleteId = USER.id
     return await Booking.find({trainee: athleteId})
 }
 
 exports.cancelBooking = async (req, res) => {
-    const athlete = await Coach.findById(req.session.passport.user._id)
+    const athlete = await Coach.findById(USER.id)
     const booking = await athlete.bookings.findById(req.body.bookingId)
 
     if (booking) {
