@@ -69,9 +69,10 @@ function CoachSchedule(props) {
     if (sessionType === "Private") price = location.state.coach.privatePrice;
 
     const payload = {
+      athleteId: localStorage.getItem("user").toString(),
       coachEmail: location.state.coach.email,
-      sessionTime: selectedTime,
-      sessionDate: selectedDate,
+      sessionTime: selectedTime.toString(),
+      sessionDate: selectedDate.toString(),
       location: location.state.coach.address,
       price: 10,
     };

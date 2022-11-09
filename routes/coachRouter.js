@@ -31,6 +31,7 @@ router.post(
   passport.authenticate("coach-login", {
     successRedirect: "/contact",
     failureRedirect: "/fail",
+    session: true,
   })
 );
 
@@ -63,7 +64,7 @@ router.post("/logout", (req, res) => {
   }
 });
 
-router.get("/:id", utils.coachIsLoggedIn, function (req, res, next) {
+router.get("/:id", function (req, res, next) {
   coach.findById(req.params.id, function (err, data) {
     if (err) return next(err);
     res.json(data);

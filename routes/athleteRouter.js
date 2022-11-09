@@ -26,15 +26,17 @@ router.post(
   passport.authenticate("trainee-login", {
     successRedirect: "/",
     failureRedirect: "/fail",
+    session: true
   }),
   async (req, res) => {
     console.log(res);
     user._id = res._id;
     user.role = "trainee";
+
   }
 );
 
-router.get("/getDetails", utils.athleteIsLoggedIn, (req, res) => {
+router.get("/getDetails", (req, res) => {
   // athlete.findOne(
   //   { email: req.session.passport.user.email },
   //   function (err, user) {
@@ -65,11 +67,10 @@ router.post("/logout", (req, res) => {
 
 router.post(
   "/bookSession",
-  utils.athleteIsLoggedIn,
   traineeController.bookSession
 );
 
-router.post("/update", utils.athleteIsLoggedIn, (req, res) => {
+router.post("/update", (req, res) => {
   console.log("req.body", req.body);
   var _id = req.body._id;
   var data = {
