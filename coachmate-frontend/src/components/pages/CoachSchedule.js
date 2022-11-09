@@ -88,7 +88,7 @@ function CoachSchedule(props) {
         console.log(res)
         Swal.fire({
           title: "Success!",
-          text: "Your booking is successful!",
+          text: "You'll be notified when your booking is accepted!",
           icon: "success",
           showCancelButton: true,
           confirmButtonText: "Back to home page",

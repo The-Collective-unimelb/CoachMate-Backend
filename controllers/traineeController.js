@@ -31,6 +31,8 @@ exports.bookSession = async (req, res) => {
     await coach.bookings.push(newBooking)
     await coach.save()
     console.log("booking", newBooking)
+
+    res.sendStatus(200)
 }
 
 exports.updateProfile = async (req, res) => {
