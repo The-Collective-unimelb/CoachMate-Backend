@@ -32,10 +32,10 @@ var BookingSchema = new Schema({
     },
     trainees: [
         {
-            athlete: {
+            trainee: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: 'Trainee',
-                required: true,
+                ref: '/Trainee',
+                required: false,
             },
         },
     ]

@@ -1,37 +1,27 @@
 function coachIsLoggedIn(req, res, next) {
-  if (req.user) {
-    if (req.user.role == "coach") {
+  if (USER) {
+    if (USER.role == "coach") {
       return next();
     } else {
       res.redirect("/");
       return;
     }
   }
-  req.logout(function (err) {
-    if (err) {
-      return next(err);
-    }
-    res.redirect("/");
-  });
-  res.redirect("/login");
+  USER = null
+  res.redirect('/')
 }
 
 function athleteIsLoggedIn(req, res, next) {
-  if (req.user) {
-    if (req.user.role == "trainee") {
+  if (USER) {
+    if (USER.role == "athlete") {
       return next();
     } else {
       res.redirect("/coach-dashboard");
       return;
     }
   }
-  req.logout(function (err) {
-    if (err) {
-      return next(err);
-    }
-    res.redirect("/");
-  });
-  res.redirect("/login");
+  USER = null
+  res.redirect('/')
 }
 
 module.exports = {

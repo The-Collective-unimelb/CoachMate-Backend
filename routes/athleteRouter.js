@@ -53,7 +53,7 @@ router.get("/getDetails", (req, res) => {
   //     });
   //   }
   // );
-  res.send(req.user);
+  res.send(USER.id);
 });
 
 router.post("/logout", (req, res) => {

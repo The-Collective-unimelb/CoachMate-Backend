@@ -2,13 +2,18 @@ const Coach = require('../models/coach')
 const Booking = require('../models/booking')
 const Trainee = require('../models/trainee')
 
-exports.bookSession = async (req) => {
-    const athleteId = req.body.athleteId
+exports.bookSession = async (req, res) => {
+    if (!USER) {
+        res.redirect('/login')
+    }
+    const athleteId = USER.id
     const athlete = await Trainee.findById(athleteId)
     const coachId = (await Coach.findOne({email: req.body.coachEmail}))._id
     const coach = await Coach.findById(coachId)
     const sessionTime = req.body.sessionTime
     const sessionDate = req.body.sessionDate
+    console.log("athlete: ", athlete)
+    console.log("coach", coach)
 
     const newBooking = new Booking({
         sessionTime: sessionTime,
@@ -18,13 +23,14 @@ exports.bookSession = async (req) => {
         price: req.body.price,
         status: 'Pending'
     })
-    newBooking.trainees.push(athleteId)
+    newBooking.trainees.push(athlete)
     await newBooking.save()
 
-    await athlete.bookings.push(newBooking._id)
+    await athlete.bookings.push(newBooking)
     await athlete.save()
-    await coach.bookings.push(newBooking._id)
+    await coach.bookings.push(newBooking)
     await coach.save()
+    console.log("booking", newBooking)
 }
 
 exports.updateProfile = async (req, res) => {

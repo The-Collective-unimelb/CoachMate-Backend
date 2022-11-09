@@ -60,11 +60,11 @@ router.get("/getDetails", (req, res) => {
   //     });
   //   }
   // );
-  res.send(req.user);
+  res.send(USER.id);
 });
 
 router.post("/logout", (req, res) => {
-  console.log(req.user);
+  console.log(USER.id);
   if (req.isAuthenticated()) {
     req.logout(function (err) {
       if (err) {
