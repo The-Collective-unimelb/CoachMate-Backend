@@ -19,7 +19,7 @@ exports.acceptBooking = async (req, res) => {
 };
 
 exports.updateProfile = async (req, res) => {
-  const coach = await Coach.findById(req.user._id);
+  const coach = await Coach.findById(req.body.id);
   const body = req.body;
   coach.firstName = body.firstName;
   coach.lastName = body.lastName;
@@ -28,7 +28,6 @@ exports.updateProfile = async (req, res) => {
 //   coach.password = await bcrypt.hash(body.password, 10);
   coach.phone = req.body.phone;
   coach.address = req.body.address;
-  coach.email = req.body.email;
   coach.aboutMe = req.body.aboutMe;
   coach.skills = req.body.skills;
   coach.qualifications = req.body.qualifications;
@@ -36,11 +35,13 @@ exports.updateProfile = async (req, res) => {
   coach.privatePrice = req.body.privatePrice;
   coach.groupPrice = req.body.groupPrice;
 
-  if (await Coach.findOne({ email: body.email })) {
+  if (await Coach.findOne({ email: body.email }) && coach.email != body.email) {
     throw Error("Email is already registered");
   } else {
     coach.email = body.email;
   }
 
   await coach.save();
+
+  res.sendStatus(200);
 };

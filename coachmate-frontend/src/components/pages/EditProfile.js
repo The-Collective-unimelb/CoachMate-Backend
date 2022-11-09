@@ -87,6 +87,7 @@ function EditProfile() {
     e.preventDefault();
 
     const payload = {
+      id: localStorage.getItem("user"),
       firstName: state.firstName,
       lastName: state.lastName,
       phone: state.phone,
