@@ -61,7 +61,6 @@ router.post("/logout", (req, res) => {
     });
     res.sendStatus(200);
   }
-  user.id = null;
 });
 
 router.post(

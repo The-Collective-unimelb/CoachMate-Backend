@@ -6,7 +6,6 @@ const passport = require("passport");
 
 const coach = require("../models/coach");
 const utils = require("../utils");
-const { findOne } = require("../models/coach");
 
 router.get("/", (req, res) => {
   coach
@@ -32,11 +31,7 @@ router.post(
   passport.authenticate("coach-login", {
     successRedirect: "/contact",
     failureRedirect: "/fail",
-  }),
-  async (req, res) => {
-    user.id = res._id;
-    user.role = "coach";
-  }
+  })
 );
 
 router.get("/getDetails", (req, res) => {
@@ -66,7 +61,6 @@ router.post("/logout", (req, res) => {
     });
     res.sendStatus(200);
   }
-  user.id = null;
 });
 
 router.get("/:id", utils.coachIsLoggedIn, function (req, res, next) {
