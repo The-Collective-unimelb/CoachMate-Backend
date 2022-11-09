@@ -2,9 +2,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var BookingSchema = new Schema({
-    session: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'TimeSlot',
+    sessionTime: {
+        type: String,
+        ref: 'sessionTime',
+        required: true
+    },
+    sessionDate: {
+        type: String,
+        ref: 'sessionDate',
         required: true
     },
     coach: {

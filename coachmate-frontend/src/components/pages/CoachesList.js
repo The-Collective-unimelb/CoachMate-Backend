@@ -6,6 +6,15 @@ import { useLocation, useNavigate } from "react-router-dom";
 import CoachSearch from "../Coach/CoachSearch";
 import CoachSearchFilter from "../Coach/CoachSearchFilter";
 
+var baseUrl = process.env.BASE_URL || "http://localhost:5000";
+
+if (
+  process.env.NODE_ENV === "production" ||
+  process.env.NODE_ENV === "staging"
+) {
+  baseUrl = "https://coachmate-2022.herokuapp.com";
+}
+
 const initialFilterFormData = {
   name: "",
   location: "",
@@ -27,14 +36,14 @@ function CoachesList() {
 
   const getData = () => {
     axios
-      .get("/coaches")
+      .get(baseUrl + "/coaches")
       .then((response) => {
         return response.data;
       })
       .then((data) => {
         setUsers(data);
         setUsersFetched(true);
-        //console.log(data);
+        console.log(data);
         console.log("Data has been received!!");
       })
       .catch(() => {
@@ -47,7 +56,11 @@ function CoachesList() {
   }, []);
 
   useEffect(() => {
-    if (location.state !== null && location.state.searchLocation !== "" && usersFetched) {
+    if (
+      location.state !== null &&
+      location.state.searchLocation !== "" &&
+      usersFetched
+    ) {
       // Filter address from welcome page
       setUsers(
         users.filter((user) => {
@@ -63,7 +76,10 @@ function CoachesList() {
         })
       );
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [usersFetched]);
+
+  useEffect(() => {}, [searchVal]);
 
   const minDistance = 10;
   const maxPrice = 100;
@@ -140,11 +156,8 @@ function CoachesList() {
 
   function handleFormSubmit(event) {
     event.preventDefault();
-    console.log(searchVal);
-    console.log(filterFormData);
 
     setOpenFilter(false);
-
     setSearchVal("");
     setFilterFormData(initialFilterFormData);
   }
@@ -178,7 +191,7 @@ function CoachesList() {
               avail={coach.avail}
               location={coach.address}
               onClick={() => {
-                navigate("/schedule", { state: { coach: coach } });
+                navigate("/coach-profile", { state: { coach: coach } });
               }}
             />
           );

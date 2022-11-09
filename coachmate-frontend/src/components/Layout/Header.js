@@ -33,7 +33,7 @@ function Header() {
       })
       .catch((err) => {
         console.log(err);
-        console.log("WTF");
+        console.log("Fail logout?");
       });
 
     ctx.setIsLoggedIn(false);
@@ -74,8 +74,8 @@ function Header() {
               </Link>
             )}
             {ctx.isLoggedIn && ctx.role === "Coach" && (
-              <Link to="coach-booking" className={classes["nav-item"]}>
-                MY SCHEDULE
+              <Link to="coach-dashboard" className={classes["nav-item"]}>
+                MY DASHBOARD
               </Link>
             )}
           </li>

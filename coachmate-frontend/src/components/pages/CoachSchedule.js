@@ -8,6 +8,16 @@ import { Stack } from "@mui/system";
 import Swal from "sweetalert2";
 import NoPage from "./NoPage";
 import testPic from "../../assets/profile pic.png";
+import axios from "axios";
+
+var baseUrl = process.env.BASE_URL || "http://localhost:5000";
+
+if (
+  process.env.NODE_ENV === "production" ||
+  process.env.NODE_ENV === "staging"
+) {
+  baseUrl = "https://coachmate-2022.herokuapp.com";
+}
 
 let timeOptions = [
   { label: "8:00am", time: 8 },
@@ -34,6 +44,8 @@ function CoachSchedule(props) {
     return (
       <NoPage text="Please select a coach " linkText="here" to="/coaches" />
     );
+  } else {
+    // console.log(location.state);
   }
 
   function handleSelectDate(newDate) {
@@ -47,29 +59,48 @@ function CoachSchedule(props) {
 
   function handleSelectType(value) {
     setSessionType(value);
-    console.log(value);
   }
 
   function handleConfirmBooking(event) {
     event.preventDefault();
-    // navigate("/booking-success");
 
-    Swal.fire({
-      title: "Success!",
-      text: "Your booking is successful!",
-      icon: "success",
-      // iconHtml: <img src="../../assets/BookingTick.png" alt="booking success" />,
-      // imageUrl: "/assets/BookingTick.png",
-      // imageHeight: "200px",
-      // imageWidth: "200px",
-      showCancelButton: true,
-      confirmButtonText: "Back to home page",
-      cancelButtonText: "Close",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        navigate("/");
-      }
-    });
+    let price;
+    if (sessionType === "Group") price = location.state.coach.groupPrice;
+    if (sessionType === "Private") price = location.state.coach.privatePrice;
+
+    const payload = {
+      coachEmail: location.state.coach.email,
+      sessionTime: selectedTime,
+      sessionDate: selectedDate,
+      location: location.state.coach.address,
+      price: 10,
+    };
+    console.log("payload", payload)
+
+    axios({
+      url: baseUrl + "/athlete/bookSession",
+      method: "POST",
+      data: payload,
+      withCredentials: true
+    })
+      .then((res) => {
+        console.log(res)
+        Swal.fire({
+          title: "Success!",
+          text: "Your booking is successful!",
+          icon: "success",
+          showCancelButton: true,
+          confirmButtonText: "Back to home page",
+          cancelButtonText: "Close",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate("/");
+          }
+        });
+      })
+      .catch((e) => {
+        console.log(e.response);
+      });
   }
 
   return (
@@ -87,8 +118,8 @@ function CoachSchedule(props) {
         <Stack spacing={10} direction="row">
           <Stack spacing={3}>
             <img src={testPic} alt="profile pic" />
-            <h2>{location.state.coach.name}</h2>
-            <h3>Venue</h3>
+            <h2>{location.state.coach.firstName}</h2>
+            <h3>{location.state.coach.address}</h3>
           </Stack>
           <Stack>
             <form id="session-form" onSubmit={handleConfirmBooking}>

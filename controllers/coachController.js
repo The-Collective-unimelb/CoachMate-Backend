@@ -1,55 +1,46 @@
-const TimeSlot = require('../models/timeslot')
-const Coach = require('../models/coach')
-const Booking = require('../models/booking')
-
-exports.createTimeSlot = async (req, res) => {
-    const newTimeSlot = new TimeSlot({
-        sessionID: req.body.sessionID,
-        timeStart: req.body.timeStart,
-        timeEnd: req.body.timeEnd,
-        sessionType: req.body.sessionType
-    })
-    await newTimeSlot.save()
-
-    const coach = await Coach.findById(req.user._id)
-    coach.timeSlots.push(newTimeSlot._id)
-    await coach.save()
-
-    return newTimeSlot
-}
+const Coach = require("../models/coach");
+const Booking = require("../models/booking");
 
 exports.viewBookings = async (req, res) => {
-    const coachId = req.user._id
+    const coachId = req.session.passport.user._id
     return await Booking.find({coach: coachId})
 }
 
-exports.updateTimeSlot = async (req, res) => {
-    const coach = await Coach.findById(req.user._id)
-    const timeSlot = await coach.timeSlots.findById(req.body.timeSlotId)
-
-    if (timeSlot) {
-        timeSlot = {
-            sessionID: req.body.sessionID,
-            timeStart: req.body.timeStart,
-            timeEnd: req.body.timeEnd,
-            sessionType: req.body.sessionType
-        }
-
-        await timeSlot.save()
-        return timeSlot
-    } else {
-        throw Error('Time slot does not exist for this coach')
-    }
-}
-
 exports.acceptBooking = async (req, res) => {
-    const coach = await Coach.findById(req.user._id)
+    const coach = await Coach.findById(req.session.passport.user._id)
     const booking = await coach.bookings.findById(req.body.bookingId)
 
-    if (booking) {
-        booking.status = 'Booked'
-        await booking.save()
-    } else {
-        throw Error('Acceptance failed')
-    }
-}
+  if (booking) {
+    booking.status = "Booked";
+    await booking.save();
+  } else {
+    throw Error("Acceptance failed");
+  }
+};
+
+exports.updateProfile = async (req, res) => {
+  const coach = await Coach.findById(req.user._id);
+  const body = req.body;
+  coach.firstName = body.firstName;
+  coach.lastName = body.lastName;
+  coach.age = body.age;
+  coach.gender = body.gender;
+//   coach.password = await bcrypt.hash(body.password, 10);
+  coach.phone = req.body.phone;
+  coach.address = req.body.address;
+  coach.email = req.body.email;
+  coach.aboutMe = req.body.aboutMe;
+  coach.skills = req.body.skills;
+  coach.qualifications = req.body.qualifications;
+  coach.contactInfo = req.body.contactInfo;
+  coach.privatePrice = req.body.privatePrice;
+  coach.groupPrice = req.body.groupPrice;
+
+  if (await Coach.findOne({ email: body.email })) {
+    throw Error("Email is already registered");
+  } else {
+    coach.email = body.email;
+  }
+
+  await coach.save();
+};

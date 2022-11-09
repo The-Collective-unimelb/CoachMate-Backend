@@ -26,13 +26,15 @@ app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: true,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: { maxAge: 900000 },
   })
 );
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+user = {id: null, role: null}
 
 const generalRouter = require("./routes/generalRouter");
 app.use("/", generalRouter);

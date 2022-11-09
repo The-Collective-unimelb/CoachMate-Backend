@@ -1,8 +1,10 @@
 import classes from "./EditProfile.module.css";
 import pfp from "../../assets/pfp-blue.jpg";
-import { Link, useNavigate} from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
+import Button from "../UI/Button";
 
 var baseUrl = process.env.BASE_URL || "http://localhost:5000";
 
@@ -13,17 +15,14 @@ if (
   baseUrl = "https://coachmate-2022.herokuapp.com";
 }
 
-
 function EditProfile() {
-  
   const navigate = useNavigate();
-
   const [state, setState] = useState({
     firstName: "",
     lastName: "",
     phone: "",
     gender: "Male",
-    age: "",
+    age: 0,
     address: "",
     email: "",
     password: "",
@@ -31,9 +30,50 @@ function EditProfile() {
     skills: "",
     qualifications: "",
     contactInfo: "",
-    privatePrice: "",
-    groupPrice: "",
+    privatePrice: 0,
+    groupPrice: 0,
   });
+  useEffect(() => {
+    axios
+      .get(baseUrl + `/coaches/getDetails`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res);
+        setState({
+          firstName: res.data.firstName,
+          lastName: res.data.lastName,
+          phone: res.data.phone,
+          gender: res.data.gender,
+          age: res.data.age,
+          address: res.data.address,
+          email: res.data.email,
+          password: "",
+          aboutMe: res.data.aboutMe,
+          skills: res.data.skills,
+          qualifications: res.data.qualifications,
+          contactInfo: res.data.contactInfo,
+          privatePrice: res.data.privatePrice,
+          groupPrice: res.data.groupPrice,
+        });
+        initState();
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log("edit error");
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const initState = () => {
+    // change all undefined fields in state to empty string
+    for (var field in state) {
+      if (typeof field == "undefined") {
+        setState((prevState) => ({ ...prevState, field: "" }));
+      }
+    }
+    console.log(state);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,46 +86,66 @@ function EditProfile() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    
-
-    console.log("Client Submitted");
-
     const payload = {
       firstName: state.firstName,
       lastName: state.lastName,
       phone: state.phone,
       gender: state.gender,
-      age: state.age,
+      age: +state.age,
       address: state.address,
       email: state.email,
-      password: state.password,
+      // password: state.password,
       aboutMe: state.aboutMe,
       skills: state.skills,
       qualifications: state.qualifications,
       contactInfo: state.contactInfo,
-      privatePrice: state.privatePrice,
-      groupPrice: state.groupPrice,
+      privatePrice: +state.privatePrice,
+      groupPrice: +state.groupPrice,
     };
 
+    log("coaches");
+
     axios({
-      url: baseUrl + "/coaches/register",
+      url: baseUrl + "/coaches/update",
       method: "POST",
       data: payload,
+      withCredentials: true,
     })
-      .then(() => {
-        console.log("Coach data has been received!!");
-        navigate("/login");
+      .then((res) => {
+        // console.log("updated", res);
+        Swal.fire({
+          title: "Success!",
+          text: "Your details have been sucessfully updated.",
+          icon: "success",
+          showCancelButton: true,
+          confirmButtonText: "Back to home page",
+          cancelButtonText: "Close",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate("/");
+          }
+        });
       })
-      .catch(() => {
-        alert("Internal Server Error!!");
+      .catch((e) => {
+        console.log(e);
+        alert("Error updating details! Try again");
       });
   };
 
-  console.log(state);
-
-
-
-
+  function log(role) {
+    axios
+      .get(baseUrl + `/${role}/getDetails`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log("LOGG");
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log("log err");
+      });
+  }
   return (
     <div className={classes["vertical-flex"]}>
       <div className={classes.topbar}>
@@ -110,7 +170,7 @@ function EditProfile() {
         </div>
         <div className={classes["input-column"]}>
           <label>FIRST NAME</label>
-          <input 
+          <input
             className={classes["name"]}
             name="firstName"
             type="text"
@@ -118,7 +178,7 @@ function EditProfile() {
             onChange={handleChange}
           />
           <label>LAST NAME</label>
-          <input 
+          <input
             className={classes["name"]}
             name="lastName"
             type="text"
@@ -126,7 +186,7 @@ function EditProfile() {
             onChange={handleChange}
           />
           <label>PASSWORD</label>
-          <input 
+          <input
             className={classes["name"]}
             name="password"
             type="text"
@@ -134,7 +194,7 @@ function EditProfile() {
             onChange={handleChange}
           />
           <label>EMAIL</label>
-          <input 
+          <input
             className={classes["name"]}
             name="email"
             type="email"
@@ -142,7 +202,7 @@ function EditProfile() {
             onChange={handleChange}
           />
           <label>PHONE NO.</label>
-          <input 
+          <input
             className={classes["name"]}
             name="phone"
             type="text"
@@ -151,8 +211,8 @@ function EditProfile() {
           />
           <label>GENDER</label>
           <br />
-          <br/>
-          <select 
+          <br />
+          <select
             className={classes["name"]}
             name="gender"
             type="text"
@@ -162,10 +222,10 @@ function EditProfile() {
             <option value="Male">MALE</option>
             <option value="Female">FEMALE</option>
           </select>
-          <br/>
-          <br/>
+          <br />
+          <br />
           <label>AGE</label>
-          <input 
+          <input
             className={classes["name"]}
             name="age"
             type="number"
@@ -173,7 +233,7 @@ function EditProfile() {
             onChange={handleChange}
           />
           <label>ADDRESS</label>
-          <input 
+          <input
             className={classes["name"]}
             name="address"
             type="text"
@@ -181,7 +241,9 @@ function EditProfile() {
             onChange={handleChange}
           />
           <label>SOCIALS</label>
-          <textarea 
+          <br />
+          <br />
+          <textarea
             className={classes["name"]}
             name="contactInfo"
             rows="3"
@@ -189,8 +251,12 @@ function EditProfile() {
             value={state.contactInfo}
             onChange={handleChange}
           />
+          <br />
+          <br />
           <label>ABOUT ME</label>
-          <textarea 
+          <br />
+          <br />
+          <textarea
             className={classes["name"]}
             name="aboutMe"
             rows="10"
@@ -198,8 +264,12 @@ function EditProfile() {
             value={state.aboutMe}
             onChange={handleChange}
           />
+          <br />
+          <br />
           <label>SKILLS</label>
-          <textarea 
+          <br />
+          <br />
+          <textarea
             className={classes["name"]}
             name="skills"
             rows="10"
@@ -207,8 +277,12 @@ function EditProfile() {
             value={state.skills}
             onChange={handleChange}
           />
+          <br />
+          <br />
           <label>QUALIFICATIONS</label>
-          <textarea 
+          <br />
+          <br />
+          <textarea
             className={classes["name"]}
             name="qualifications"
             rows="10"
@@ -216,8 +290,10 @@ function EditProfile() {
             value={state.qualifications}
             onChange={handleChange}
           />
+          <br />
+          <br />
           <label>PRICE FOR PRIVATE SESSIONS</label>
-          <input 
+          <input
             className={classes["name"]}
             name="privatePrice"
             type="number"
@@ -225,7 +301,7 @@ function EditProfile() {
             onChange={handleChange}
           />
           <label>PRICE FOR GROUP SESSIONS</label>
-          <input 
+          <input
             className={classes["name"]}
             name="groupPrice"
             type="number"
@@ -234,6 +310,7 @@ function EditProfile() {
           />
         </div>
       </div>
+      <Button onClick={handleSubmit}>Save Changes</Button>
     </div>
   );
 }

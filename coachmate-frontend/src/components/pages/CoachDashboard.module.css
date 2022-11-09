@@ -60,3 +60,18 @@ img {
   color: white;
   font-size: 28px;
 }
+
+.topbar {
+  display: flex;
+  align-self: flex-start;
+  font-size: 15px;
+  padding-bottom: 40px;
+  padding-top: 20px;
+}
+
+.topbar-text {
+  color: dodgerblue;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding-bottom: 3px;
+}
