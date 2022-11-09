@@ -3,7 +3,7 @@ const Booking = require('../models/booking')
 const Trainee = require('../models/trainee')
 
 exports.bookSession = async (req) => {
-    const athleteId = req.session.passport.user._id
+    const athleteId = req.user._id
     const athlete = await Trainee.findById(athleteId)
     const coachId = (await Coach.findOne({email: req.body.coachEmail}))._id
     const coach = await Coach.findById(coachId)

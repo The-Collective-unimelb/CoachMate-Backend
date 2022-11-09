@@ -4,8 +4,8 @@ const generalController = require("../controllers/generalController");
 const traineeController = require("../controllers/traineeController");
 const passport = require("passport");
 const utils = require("../utils");
-
-const athlete = require("../models/trainee");
+const bcrypt = require('bcrypt')
+const Trainee = require("../models/trainee");
 
 router.get("/", (req, res) => {
   athlete
@@ -23,15 +23,21 @@ router.post("/register", generalController.register);
 
 router.post(
   "/login",
+  async (req, res, next) => {
+    var athlete = await Trainee.findOne({ email: req.body.email })
+    if (athlete) {
+      if (await bcrypt.compare(req.body.password, athlete.password)) {
+        USER = { id: athlete.id, role: 'athlete' }
+      }
+    }
+
+    console.log(USER)
+    return next()
+  },
   passport.authenticate("trainee-login", {
     successRedirect: "/",
     failureRedirect: "/fail",
-  }),
-  async (req, res) => {
-    console.log(res);
-    user._id = res._id;
-    user.role = "trainee";
-  }
+  })
 );
 
 router.get("/getDetails", utils.athleteIsLoggedIn, (req, res) => {
@@ -65,7 +71,10 @@ router.post("/logout", (req, res) => {
 
 router.post(
   "/bookSession",
-  utils.athleteIsLoggedIn,
+  (req, res, next) => {
+    console.log(USER)
+    return next()
+  },
   traineeController.bookSession
 );
 

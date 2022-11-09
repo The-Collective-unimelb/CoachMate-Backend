@@ -3,12 +3,13 @@ const router = express.Router();
 const generalController = require("../controllers/generalController");
 const coachController = require("../controllers/coachController");
 const passport = require("passport");
+const bcrypt = require('bcrypt')
 
-const coach = require("../models/coach");
+const Coach = require("../models/coach");
 const utils = require("../utils");
 
 router.get("/", (req, res) => {
-  coach
+  Coach
     .find({})
     .then((data) => {
       res.json(data);
@@ -28,6 +29,17 @@ router.post("/register", generalController.register);
 
 router.post(
   "/login",
+  async (req, res, next) => {
+    var coach = await Coach.findOne({ email: req.body.email })
+    if (coach) {
+      if (await bcrypt.compare(req.body.password, coach.password)) {
+        USER = { id: coach.id, role: 'coach' }
+      }
+    }
+
+    console.log(USER)
+    return next()
+  },
   passport.authenticate("coach-login", {
     successRedirect: "/contact",
     failureRedirect: "/fail",

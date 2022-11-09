@@ -9,10 +9,6 @@ const corsOptions = {
   optionSuccessStatus: 200,
 };
 
-app.use(cors(corsOptions));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-
 const PORT = process.env.PORT || 5000;
 
 const passport = require("passport");
@@ -20,6 +16,11 @@ const flash = require("express-flash");
 const session = require("express-session");
 
 require("./passport")(passport);
+
+
+app.use(cors(corsOptions));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.use(flash());
 app.use(
@@ -44,6 +45,8 @@ app.use("/athlete", athleteRouter);
 
 const bookingsRouter = require("./routes/bookings");
 app.use("/bookings", bookingsRouter);
+
+USER = null
 
 if (
   process.env.NODE_ENV === "production" ||
