@@ -14,7 +14,6 @@ if (
   baseUrl = "https://coachmate-2022.herokuapp.com";
 }
 
-
 function SignUpFormAthlete(props) {
   const navigate = useNavigate();
 
@@ -61,16 +60,16 @@ function SignUpFormAthlete(props) {
       url: baseUrl + "/athlete/register",
       method: "POST",
       data: payload,
+      withCredentials: true,
     })
       .then(() => {
         console.log("Athlete data has been received!!");
         navigate("/login");
       })
       .catch((e) => {
-        console.log(e)
+        console.log(e);
         alert("Internal Server Error!!");
       });
-
   };
 
   return (

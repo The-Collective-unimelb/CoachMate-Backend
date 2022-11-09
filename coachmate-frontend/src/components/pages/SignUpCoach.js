@@ -14,7 +14,6 @@ if (
   baseUrl = "https://coachmate-2022.herokuapp.com";
 }
 
-
 function SignUpFormCoach(props) {
   const navigate = useNavigate();
 
@@ -68,12 +67,12 @@ function SignUpFormCoach(props) {
       url: baseUrl + "/coaches/register",
       method: "POST",
       data: payload,
+      withCredentials: true,
     })
       .then((response) => {
         console.log("Coach data has been received!!");
         console.log(JSON.stringify(response.data.email));
         navigate("/login");
-
       })
       .catch(() => {
         //err = true;
@@ -81,7 +80,7 @@ function SignUpFormCoach(props) {
       });
 
     //if (!err) {
-      //navigate("/login");
+    //navigate("/login");
     //}
   };
 

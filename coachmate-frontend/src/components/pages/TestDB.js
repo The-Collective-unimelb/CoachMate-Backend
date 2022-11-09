@@ -7,7 +7,7 @@ function TestDB() {
 
   const getData = () => {
     axios
-      .get("/coaches")
+      .get("/coaches", {withCredentials:true})
       .then((response) => {
         return response.data;
       })

@@ -57,12 +57,27 @@ function LoginForm(props) {
       .then(() => {
         ctx.setRole(state.role);
         ctx.setIsLoggedIn(true);
+
+        axios
+          .get(baseUrl + `/${role}/getDetails`, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log("res data", res.data)
+            localStorage.setItem("user", res.data._id);
+            console.log("store", localStorage.getItem("user"));
+          })
+          .catch((err) => {
+            console.log(err);
+            console.log("store fail");
+          });
+
         if (state.role === "Coach") {
-          log(role);
+          // log(role);
           navigate("/coach-dashboard");
         }
         if (state.role === "Athlete") {
-          log(role);
+          // log(role);
           navigate("/");
         }
         console.log(`${state.role} data has been received!!`);
