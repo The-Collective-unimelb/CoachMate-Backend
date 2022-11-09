@@ -36,7 +36,7 @@ function CoachesList() {
 
   const getData = () => {
     axios
-      .get(baseUrl + "/coaches")
+      .get(baseUrl + "/coaches", { withCredentials: true })
       .then((response) => {
         return response.data;
       })
@@ -76,7 +76,7 @@ function CoachesList() {
         })
       );
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [usersFetched]);
 
   useEffect(() => {}, [searchVal]);
