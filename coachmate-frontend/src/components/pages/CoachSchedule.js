@@ -7,7 +7,7 @@ import SessionType from "../Booking/SessionType";
 import { Stack } from "@mui/system";
 import Swal from "sweetalert2";
 import NoPage from "./NoPage";
-import testPic from "../../assets/profile pic.png";
+import testPic from "../../assets/pfp-blue.jpg";
 import axios from "axios";
 
 var baseUrl = process.env.BASE_URL || "http://localhost:5000";
