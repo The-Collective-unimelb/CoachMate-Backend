@@ -59,7 +59,7 @@ function LoginForm(props) {
         ctx.setIsLoggedIn(true);
 
         axios
-          .get(baseUrl + `/${role}/getDetails`, {
+          .get(baseUrl + `/${role}/getId`, {
             withCredentials: true,
           })
           .then((res) => {
