@@ -71,4 +71,6 @@ router.get("/:id", function (req, res, next) {
 
 router.post("/update", coachController.updateProfile);
 
+router.get("/viewBookings", coachController.viewBookings);
+
 module.exports = router;

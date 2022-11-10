@@ -66,6 +66,8 @@ router.post(
   traineeController.bookSession
 );
 
+router.get("/viewBookings", traineeController.viewBookings);
+
 router.post("/update", (req, res) => {
   console.log("req.body", req.body);
   var _id = req.body._id;
