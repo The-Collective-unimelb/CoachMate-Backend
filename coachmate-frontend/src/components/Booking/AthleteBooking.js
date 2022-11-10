@@ -57,15 +57,6 @@ function AthleteBooking() {
 
   return (
     <div className={classes["vertical-flex"]}>
-      <div className={classes.topbar}>
-        <Link to="/coach-dashboard" className={classes["topbar-text"]}>
-          DASHBOARD
-        </Link>
-        <div>&nbsp; {">"} &nbsp;</div>
-        <Link to="#" className={classes["topbar-text"]}>
-          BOOKING HISTORY
-        </Link>
-      </div>
       <h1>BOOKING HISTORY</h1>
       <div className={classes["history-header"]}>
         <div>DATE</div>
@@ -76,7 +67,7 @@ function AthleteBooking() {
         <div>|</div>
         <div>LOCATION</div>
         <div>|</div>
-        <div>PRICE</div>
+        <div>TYPE</div>
         <div>|</div>
         <div>STATUS</div>
       </div>
@@ -88,7 +79,7 @@ function AthleteBooking() {
             <div>{data.sessionTime}</div>
             <div>{data.coachName}</div>
             <div>{data.location}</div>
-            <div>{data.price}</div>
+            <div>{data.sessionType}</div>
             <div>{data.status}</div>
           </div>
         );
