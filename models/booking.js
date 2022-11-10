@@ -17,6 +17,11 @@ var BookingSchema = new Schema({
         ref: 'Coach',
         required: true
     },
+    coachName: {
+        type: String,
+        ref: 'coachName',
+        required: false
+    },
     location: {
         type: String,
         required: true

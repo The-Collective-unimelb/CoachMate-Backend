@@ -1,5 +1,16 @@
 import { Link } from "react-router-dom";
 import classes from "./AthleteBooking.module.css";
+import axios from "axios";
+import { useEffect, useState } from "react";
+
+var baseUrl = process.env.BASE_URL || "http://localhost:5000";
+
+if (
+  process.env.NODE_ENV === "production" ||
+  process.env.NODE_ENV === "staging"
+) {
+  baseUrl = "https://coachmate-2022.herokuapp.com";
+}
 
 const DUMMY_VARS = [
   {
@@ -18,25 +29,32 @@ const DUMMY_VARS = [
     price: "100",
     status: "Cancelled",
   },
-  {
-    date: "10/10/2022",
-    time: "10:00am",
-    coach: "Omen",
-    location: "Sunshine",
-    price: "100",
-    status: "Booked",
-  },
-  {
-    date: "10/10/2022",
-    time: "10:00am",
-    coach: "Jade",
-    location: "Glen Waverley",
-    price: "100",
-    status: "Booked",
-  },
 ];
 
 function AthleteBooking() {
+  const [users, setUsers] = useState([]);
+
+  const getData = () => {
+    axios
+      .get(baseUrl + "/athlete/viewBookings", { withCredentials: true })
+      .then((response) => {
+        //console.log(response.data);
+        return response.data;
+      })
+      .then((data) => {
+        setUsers(data);
+        console.log(data);
+        console.log("Data has been received!!");
+      })
+      .catch(() => {
+        alert("Error retrieving data!!");
+      });
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <div className={classes["vertical-flex"]}>
       <div className={classes.topbar}>
@@ -63,12 +81,12 @@ function AthleteBooking() {
         <div>STATUS</div>
       </div>
 
-      {DUMMY_VARS.map((data) => {
+      {users.map((data) => {
         return (
           <div className={classes["history-row"]}>
-            <div>{data.date}</div>
-            <div>{data.time}</div>
-            <div>{data.coach}</div>
+            <div>{data.sessionDate.slice(0, -12)}</div>
+            <div>{data.sessionTime}</div>
+            <div>{data.coachName}</div>
             <div>{data.location}</div>
             <div>{data.price}</div>
             <div>{data.status}</div>
