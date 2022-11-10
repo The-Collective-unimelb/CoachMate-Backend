@@ -77,7 +77,6 @@ function CoachSchedule(props) {
       location: location.state.coach.address,
       price: 10,
     };
-    console.log("payload", payload)
 
     axios({
       url: baseUrl + "/athlete/bookSession",
