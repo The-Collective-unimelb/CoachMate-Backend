@@ -32,6 +32,7 @@ function CoachesList() {
   const [searchVal, setSearchVal] = useState("");
   const [filterFormData, setFilterFormData] = useState(initialFilterFormData);
   const [users, setUsers] = useState([]);
+  const [initialUsers, setInitialUsers] = useState([]);
   const [usersFetched, setUsersFetched] = useState(false);
 
   const getData = () => {
@@ -41,7 +42,9 @@ function CoachesList() {
         return response.data;
       })
       .then((data) => {
+        if (!usersFetched) setInitialUsers(data);
         setUsers(data);
+
         setUsersFetched(true);
         console.log(data);
         console.log("Data has been received!!");
@@ -157,21 +160,36 @@ function CoachesList() {
   function handleFormSubmit(event) {
     event.preventDefault();
 
-    setOpenFilter(false);
+    setUsers(initialUsers);
+    if (searchVal !== "") {
+      setUsers(
+        users.filter((user) => {
+          if (
+            user.address.toLowerCase().includes(searchVal.toLowerCase()) ||
+            user.firstName.toLowerCase().includes(searchVal.toLowerCase()) ||
+            user.lastName.toLowerCase().includes(searchVal.toLowerCase())
+          ) {
+            return true;
+          }
+          return false;
+        })
+      );
+    }
+
     setSearchVal("");
     setFilterFormData(initialFilterFormData);
   }
 
   return (
     <div className={classes["coach-list"]}>
-      {!openFilter && (
-        <CoachSearch
-          onButtonClick={handleOpenFilter}
-          onSubmit={handleFormSubmit}
-          onInput={handleSearchVal}
-        />
-      )}
-      {openFilter && (
+      <CoachSearch
+        id={"search"}
+        onButtonClick={handleOpenFilter}
+        onSubmit={handleFormSubmit}
+        onInput={handleSearchVal}
+        value={searchVal}
+      />
+      {/* {openFilter && (
         <CoachSearchFilter
           sliderVal={filterFormData.priceRange}
           onSliderChange={handlePriceSlider}
@@ -181,7 +199,7 @@ function CoachesList() {
           onInput={handleSearchVal}
           onCheckboxChange={handleCheckbox}
         />
-      )}
+      )} */}
       <section className={classes["coach-cards"]}>
         {users.map((coach, index) => {
           return (

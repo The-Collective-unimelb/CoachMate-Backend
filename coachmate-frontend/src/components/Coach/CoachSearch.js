@@ -6,13 +6,14 @@ function CoachSearch(props) {
   return (
     <form className={classes.form} onSubmit={props.onSubmit}>
       <TextMUI
-        id="search"
+        id={props.id}
         label="Search"
         className={classes["textfield"]}
         onInput={props.onInput}
+        value={props.searchVal}
       />
       <div className={classes.button}>
-        <Button type="button" onClick={props.onButtonClick}>FILTER</Button>
+        {/* <Button type="button" onClick={props.onButtonClick}>FILTER</Button> */}
         <Button type="submit">SEARCH</Button>
       </div>
     </form>
