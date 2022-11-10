@@ -66,7 +66,7 @@ if (
     );
   });
 
-  app.get("/signup", (req, res) => {
+  app.get("/signup-coach", (req, res) => {
     res.sendFile(
       path.resolve(__dirname, "coachmate-frontend", "build", "index.html")
     );
@@ -85,6 +85,54 @@ if (
   });
 
   app.get("/signup-athlete", (req, res) => {
+    res.sendFile(
+      path.resolve(__dirname, "coachmate-frontend", "build", "index.html")
+    );
+  });
+
+  app.get("/coaches", (req, res) => {
+    res.sendFile(
+      path.resolve(__dirname, "coachmate-frontend", "build", "index.html")
+    );
+  });
+
+  app.get("/coach-profile", (req, res) => {
+    res.sendFile(
+      path.resolve(__dirname, "coachmate-frontend", "build", "index.html")
+    );
+  });
+
+  app.get("/edit-profile", (req, res) => {
+    res.sendFile(
+      path.resolve(__dirname, "coachmate-frontend", "build", "index.html")
+    );
+  });
+
+  app.get("/coach-dashboard", (req, res) => {
+    res.sendFile(
+      path.resolve(__dirname, "coachmate-frontend", "build", "index.html")
+    );
+  });
+
+  app.get("/schedule", (req, res) => {
+    res.sendFile(
+      path.resolve(__dirname, "coachmate-frontend", "build", "index.html")
+    );
+  });
+
+  app.get("/session-picker", (req, res) => {
+    res.sendFile(
+      path.resolve(__dirname, "coachmate-frontend", "build", "index.html")
+    );
+  });
+
+  app.get("/athlete-booking", (req, res) => {
+    res.sendFile(
+      path.resolve(__dirname, "coachmate-frontend", "build", "index.html")
+    );
+  });
+
+  app.get("/coach-booking", (req, res) => {
     res.sendFile(
       path.resolve(__dirname, "coachmate-frontend", "build", "index.html")
     );
