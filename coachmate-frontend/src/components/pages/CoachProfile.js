@@ -130,24 +130,24 @@ function CoachProfile() {
         <div className={classes["profile-details-column"]}>
           <div>
             <h2>ABOUT ME</h2>
-            {details.aboutMe}
+            <pre>{details.aboutMe}</pre>
           </div>
           <div>
             <h2>SKILLS</h2>
-            {details.skills}
+            <pre>{details.skills}</pre>
           </div>
           <div>
             <h2>QUALIFICATIONS</h2>
-            {details.qualifications}
+            <pre>{details.qualifications}</pre>
           </div>
           <div>
             <h2>SESSION PRICES</h2>
-            <div>One-on-One Coaching 60 MINS {details.privatePrice}</div>
-            <div>Group Coaching 60 MINS {details.groupPrice}</div>
+            <pre>One-on-One Coaching 60 MINS {details.privatePrice}</pre>
+            <pre>Group Coaching 60 MINS {details.groupPrice}</pre>
           </div>
           <div>
             <h2>CONTACT INFO</h2>
-            {details.contactInfo}
+            <pre>{details.contactInfo}</pre>
           </div>
         </div>
       </div>

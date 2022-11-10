@@ -154,6 +154,10 @@ function EditProfile() {
           DASHBOARD
         </Link>
         <div>&nbsp; {">"} &nbsp;</div>
+        <Link to="/coach-profile" className={classes["topbar-text"]}>
+          PROFILE
+        </Link>
+        <div>&nbsp; {">"} &nbsp;</div>
         <Link to="#" className={classes["topbar-text"]}>
           EDIT PROFILE
         </Link>
@@ -215,6 +219,7 @@ function EditProfile() {
           <br />
           <select
             className={classes["name"]}
+            style={{ fontSize: "inherit" }}
             name="gender"
             type="text"
             value={state.gender}

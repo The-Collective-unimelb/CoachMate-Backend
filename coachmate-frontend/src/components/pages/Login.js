@@ -64,7 +64,7 @@ function LoginForm(props) {
           })
           .then((res) => {
             console.log("res data", res.data)
-            localStorage.setItem("user", res.data._id);
+            localStorage.setItem("user", res.data);
             console.log("store", localStorage.getItem("user"));
           })
           .catch((err) => {
