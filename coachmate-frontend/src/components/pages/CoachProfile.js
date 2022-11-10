@@ -130,14 +130,17 @@ function CoachProfile() {
         <div className={classes["profile-details-column"]}>
           <div>
             <h2>ABOUT ME</h2>
+            {!details.aboutMe && <p>No info yet!</p>}
             <pre>{details.aboutMe}</pre>
           </div>
           <div>
             <h2>SKILLS</h2>
+            {!details.skills && <p>No info yet!</p>}
             <pre>{details.skills}</pre>
           </div>
           <div>
             <h2>QUALIFICATIONS</h2>
+            {!details.qualifications && <p>No info yet!</p>}
             <pre>{details.qualifications}</pre>
           </div>
           <div>
@@ -147,6 +150,7 @@ function CoachProfile() {
           </div>
           <div>
             <h2>CONTACT INFO</h2>
+            {!details.contactInfo && <p>No info yet!</p>}
             <pre>{details.contactInfo}</pre>
           </div>
         </div>

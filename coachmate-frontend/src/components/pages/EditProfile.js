@@ -316,7 +316,7 @@ function EditProfile() {
           />
         </div>
       </div>
-      <Button onClick={handleSubmit}>Save Changes</Button>
+      <Button onClick={handleSubmit}>SAVE CHANGES</Button>
     </div>
   );
 }
