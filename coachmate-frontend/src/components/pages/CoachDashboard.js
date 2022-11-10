@@ -19,7 +19,7 @@ function CoachDashboard() {
   const [profileReady, setProfileReady] = useState(false);
   const navigate = useNavigate();
   const ctx = useContext(AuthContext);
-  const [data, setData] = useState(null)
+  const [data, setData] = useState({});
 
   // check whenever ctx change
   useEffect(() => {
@@ -34,8 +34,8 @@ function CoachDashboard() {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res)
-        setData(res.data)
+        console.log(res);
+        setData(res.data);
         if (
           res.data.aboutMe === "undefined" ||
           res.data.groupPrice === "undefined" ||
@@ -50,7 +50,7 @@ function CoachDashboard() {
         console.log(err);
         console.log("fetch profile error");
       });
-  });
+  }, []);
 
   return (
     <div className={classes["vertical-flex"]}>
@@ -64,24 +64,22 @@ function CoachDashboard() {
               className={classes["profile-pic"]}
               alt="profile pic"
             ></img>
-            <h2 className={classes["profile-username"]}>Carson</h2>
+            <h2 className={classes["profile-username"]}>
+              {data.firstName}
+              {" "}
+              {data.lastName}
+            </h2>
           </div>
         </div>
         <div className={classes["dashboard-buttons-grid-container"]}>
           <Link to="/coach-profile" className={classes.link}>
-            COACH PROFILE
+            MY PROFILE
           </Link>
           <Link to="/edit-profile" className={classes.link}>
             EDIT PROFILE
           </Link>
-          <Link to="/coaches" className={classes.link}>
-            COACHLIST
-          </Link>
-          <Link to="/schedule" className={classes.link}>
-            SCHEDULE
-          </Link>
           <Link to="/coach-booking" className={classes.link}>
-            COACH BOOKING
+            MY SESSIONS
           </Link>
         </div>
       </div>

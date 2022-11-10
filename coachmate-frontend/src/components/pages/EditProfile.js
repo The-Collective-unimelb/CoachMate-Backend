@@ -1,10 +1,12 @@
 import classes from "./EditProfile.module.css";
 import pfp from "../../assets/pfp-blue.jpg";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Button from "../UI/Button";
+import { AuthContext } from "../../App";
+import NoPage from "./NoPage";
 
 var baseUrl = process.env.BASE_URL || "http://localhost:5000";
 
@@ -16,6 +18,7 @@ if (
 }
 
 function EditProfile() {
+  const ctx = useContext(AuthContext);
   const navigate = useNavigate();
   const [state, setState] = useState({
     firstName: "",
@@ -33,6 +36,7 @@ function EditProfile() {
     privatePrice: 0,
     groupPrice: 0,
   });
+
   useEffect(() => {
     axios
       .get(baseUrl + `/coaches/getDetails`, {
@@ -64,6 +68,12 @@ function EditProfile() {
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (!ctx.isLoggedIn && ctx.role !== "Athlete") {
+    return (
+      <NoPage text="Unauthorised page! Login " linkText="here" to="/login" />
+    );
+  }
 
   const initState = () => {
     // change all undefined fields in state to empty string
