@@ -55,7 +55,7 @@ exports.updateProfile = async (req, res) => {
 
 exports.viewBookings = async (req, res) => {
     const athleteId = USER.id
-    return await Booking.find({trainee: athleteId})
+    return await Booking.find({ trainees: {trainee: {_id: athleteId}}})
 }
 
 exports.cancelBooking = async (req, res) => {
