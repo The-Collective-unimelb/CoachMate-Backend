@@ -110,7 +110,6 @@ function CoachSchedule(props) {
         <Link to="/coaches" className={classes["topbar-text"]}>
           COACH LIST
         </Link>
-        <div>&nbsp; {">"} &nbsp;</div>
         <div to="#" className={classes["topbar-text"]}>
           {location.state.coach.name}
         </div>

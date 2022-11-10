@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../App";
 import Button from "../UI/Button";
 import axios from "axios";
+import NoPage from "./NoPage";
 
 var baseUrl = process.env.BASE_URL || "http://localhost:5000";
 
@@ -68,8 +69,26 @@ function CoachProfile() {
     }
   }, []);
 
+  if (
+    (location.state === null && ctx.role !== "Coach") ||
+    (ctx.isLoggedIn && ctx.role === "Athlete" && location.state === null)
+  ) {
+    return (
+      <NoPage text="Please select a coach " linkText="here" to="/coaches" />
+    );
+  } else {
+    // console.log(location.state);
+  }
+
   return (
     <div className={classes["vertical-flex"]}>
+      {ctx.isLoggedIn && ctx.role === "Athlete" && (
+        <div className={classes.topbar}>
+          <Link to="/coaches" className={classes["topbar-text"]}>
+            COACH LIST
+          </Link>
+        </div>
+      )}
       {ctx.isLoggedIn && ctx.role === "Coach" && (
         <div className={classes.topbar}>
           <Link to="/coach-dashboard" className={classes["topbar-text"]}>
@@ -96,7 +115,9 @@ function CoachProfile() {
           <br></br>
           <br></br>
           {ctx.isLoggedIn && ctx.role === "Coach" && (
-            <Link to="/edit-profile">EDIT PROFILE</Link>
+            <Button>
+              <Link to="/edit-profile">EDIT PROFILE</Link>
+            </Button>
           )}
           {ctx.isLoggedIn && ctx.role === "Athlete" && (
             <Button>
@@ -107,42 +128,27 @@ function CoachProfile() {
           )}
         </div>
         <div className={classes["profile-details-column"]}>
-          <p>
+          <div>
             <h2>ABOUT ME</h2>
             {details.aboutMe}
-          </p>
-          <p>
+          </div>
+          <div>
             <h2>SKILLS</h2>
             {details.skills}
-          </p>
-          <p>
+          </div>
+          <div>
             <h2>QUALIFICATIONS</h2>
             {details.qualifications}
-          </p>
-          <p>
+          </div>
+          <div>
             <h2>SESSION PRICES</h2>
             <div>One-on-One Coaching 60 MINS {details.privatePrice}</div>
-            {/* <div>One-on-One Coaching 45 MINS $250</div>
-            <div>Small Group up to 4 athletes 60 MINS $300</div>
-            <div>Team up to 15 athletes 60 MINS $500</div>
-            <div>Online Mentoring 30 MINS $100</div> */}
             <div>Group Coaching 60 MINS {details.groupPrice}</div>
-          </p>
-          {/* <p>
-            <h2>REVIEWES</h2>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Libero
-            justo laoreet sit amet cursus sit amet dictum sit. Nulla facilisi
-            cras fermentum odio eu. Sed risus pretium quam vulputate dignissim
-            suspendisse in est. Convallis tellus id interdum velit laoreet id
-            donec. Nibh mauris cursus mattis molestie a iaculis. Urna id
-            volutpat lacus laoreet. Sagittis aliquam malesuada bibendum arcu
-            vitae elementum curabitur vitae.
-          </p> */}
-          <p>
+          </div>
+          <div>
             <h2>CONTACT INFO</h2>
             {details.contactInfo}
-          </p>
+          </div>
         </div>
       </div>
     </div>
