@@ -19,6 +19,7 @@ function CoachDashboard() {
   const [profileReady, setProfileReady] = useState(false);
   const navigate = useNavigate();
   const ctx = useContext(AuthContext);
+  const [data, setData] = useState(null)
 
   // check whenever ctx change
   useEffect(() => {
@@ -34,6 +35,7 @@ function CoachDashboard() {
       })
       .then((res) => {
         console.log(res)
+        setData(res.data)
         if (
           res.data.aboutMe === "undefined" ||
           res.data.groupPrice === "undefined" ||
@@ -52,11 +54,6 @@ function CoachDashboard() {
 
   return (
     <div className={classes["vertical-flex"]}>
-      <div className={classes.topbar}>
-        <Link to="/coach-dashboard" className={classes["topbar-text"]}>
-          DASHBOARD
-        </Link>
-      </div>
       <h1 className={classes.heading}>DASHBOARD</h1>
       {!profileReady && <p>Set up your profile!</p>}
       <div className={classes["dashboard-grid-container"]}>
@@ -86,9 +83,6 @@ function CoachDashboard() {
           <Link to="/coach-booking" className={classes.link}>
             COACH BOOKING
           </Link>
-          {/* <Link to="/test-db" className={classes.link}>
-            **DATABASE TESTING**
-          </Link> */}
         </div>
       </div>
     </div>

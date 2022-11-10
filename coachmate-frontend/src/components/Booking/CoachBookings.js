@@ -89,7 +89,7 @@ function CoachBookings() {
             if (!pending) setPending(true);
             return (
               <div className={classes["history-row"]}>
-                <div>{booking.sessionDate}</div>
+                <div>{booking.sessionDate.slice(0, -12)}</div>
                 <div>{booking.sessionTime}</div>
 
                 {booking.trainees.map((athlete) => {
@@ -119,7 +119,7 @@ function CoachBookings() {
             if (!booked) setBooked(true);
             return (
               <div className={classes["history-row"]}>
-                <div>{booking.sessionDate}</div>
+                <div>{booking.sessionDate.slice(0, -12)}</div>
                 <div>{booking.sessionTime}</div>
                 {booking.trainees.map((athlete) => {
                   return (
@@ -150,7 +150,7 @@ function CoachBookings() {
             if (!complete) setComplete(true);
             return (
               <div className={classes["history-row"]}>
-                <div>{booking.sessionDate}</div>
+                <div>{booking.sessionDate.slice(0, -12)}</div>
                 <div>{booking.sessionTime}</div>
                 {booking.trainees.map((athlete) => {
                   return (
