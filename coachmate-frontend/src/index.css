@@ -4,7 +4,7 @@ body {
   font-family: "Roboto";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
 }
 
 body::-webkit-scrollbar {
@@ -45,7 +45,7 @@ input {
   filter: drop-shadow(4px 5px 1px #d4d4d4);
   margin-top: 2%;
   margin-bottom: 5%;
-  font-size: 2rem;
+  font-size: 1.2rem;
 }
 
 label {
