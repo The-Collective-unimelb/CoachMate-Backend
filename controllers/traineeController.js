@@ -12,12 +12,14 @@ exports.bookSession = async (req, res) => {
   const coach = await Coach.findById(coachId);
   const sessionTime = req.body.sessionTime;
   const sessionDate = req.body.sessionDate;
+  const sessionType = req.body.sessionType;
   console.log("athlete: ", athlete);
   console.log("coach", coach);
 
   const newBooking = new Booking({
     sessionTime: sessionTime,
     sessionDate: sessionDate,
+    sessionType: sessionType,
     coach: coachId,
     location: req.body.location,
     price: req.body.price,

@@ -3,21 +3,34 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import classes from "./AthleteBooking.module.css";
 
+var baseUrl = process.env.BASE_URL || "http://localhost:5000";
+
+if (
+  process.env.NODE_ENV === "production" ||
+  process.env.NODE_ENV === "staging"
+) {
+  baseUrl = "https://coachmate-2022.herokuapp.com";
+}
+
 function CoachBookings() {
   const [bookings, setBookings] = useState([]);
+  const [pending, setPending] = useState(false);
+  const [booked, setBooked] = useState(false);
+  const [complete, setComplete] = useState(false);
 
   const getData = () => {
     axios
-      .get("/bookings", { withCredentials: true })
+      .get(baseUrl + "/bookings/coach", { withCredentials: true })
       .then((response) => {
         return response.data;
       })
       .then((data) => {
         setBookings(data);
-        console.log(data);
+        console.log("booking", data);
         console.log("Data has been received!!");
       })
-      .catch(() => {
+      .catch((e) => {
+        console.log(e);
         alert("Error retrieving data!!");
       });
   };
@@ -26,77 +39,6 @@ function CoachBookings() {
     getData();
   }, []);
 
-  const displayPendingData = () => {
-    if (bookings.length < 0) return null;
-    bookings.map((booking) => {
-      if (booking.status === "Pending") {
-        return (
-          <div className={classes["history-row"]}>
-            <div>{booking.session}</div>
-            {booking.trainees.map((athlete) => {
-              return (
-                <div>
-                  {athlete.firstName} {athlete.lastName}
-                </div>
-              );
-            })}
-            <div>{booking.sessionType}</div>
-            <div className={classes["data-status"]}>
-              <button> Accept</button>
-              <button> Cancel</button>
-            </div>
-          </div>
-        );
-      }
-      return null;
-    });
-  };
-
-  const displayBookedData = () => {
-    if (bookings.length < 0) return null;
-    bookings.map((booking) => {
-      if (booking.status === "Booked") {
-        return (
-          <div className={classes["history-row"]}>
-            <div>{booking.session}</div>
-            {booking.trainees.map((athlete) => {
-              return (
-                <div>
-                  {athlete.firstName} {athlete.lastName}
-                </div>
-              );
-            })}
-            <div>{booking.sessionType}</div>
-            <div className={classes["data-status"]}>
-              <button> Cancel</button>
-            </div>
-          </div>
-        );
-      }
-      return null;
-    });
-  };
-  const displayPastData = () => {
-    if (bookings.length < 0) return null;
-    bookings.map((booking) => {
-      if (booking.status === "Completed" || booking.status === "Cancelled") {
-        return (
-          <div className={classes["history-row"]}>
-            <div>{booking.session}</div>
-            {booking.trainees.map((athlete) => {
-              return (
-                <div>
-                  {athlete.firstName} {athlete.lastName}
-                </div>
-              );
-            })}
-            <div>{booking.sessionType}</div>
-          </div>
-        );
-      }
-      return null;
-    });
-  };
   return (
     <div className={classes["vertical-flex"]}>
       <div className={classes.topbar}>
@@ -121,15 +63,88 @@ function CoachBookings() {
       </div>
 
       <h1>NEW</h1>
-      <div>{displayPendingData()}</div>
+      <div>
+        {bookings.map((booking) => {
+          if (booking.status === "Pending") {
+            if (!pending) setPending(true);
+            return (
+              <div className={classes["history-row"]}>
+                <div>{booking.sessionDate}</div>
+                <div>{booking.sessionTime}</div>
+
+                {booking.trainees.map((athlete) => {
+                  return (
+                    <div>
+                      {athlete.firstName} {athlete.lastName}
+                    </div>
+                  );
+                })}
+                <div>{booking.sessionType}</div>
+                <div className={classes["data-status"]}>
+                  <button> Accept</button>
+                  <button> Cancel</button>
+                </div>
+              </div>
+            );
+          }
+          return null;
+        })}
+        {!pending && <p>No data here</p>}
+      </div>
 
       <h1>UPCOMING</h1>
-
-      <div>{displayBookedData()}</div>
+      <div>
+        {bookings.map((booking) => {
+          if (booking.status === "Booked") {
+            if (!booked) setBooked(true);
+            return (
+              <div className={classes["history-row"]}>
+                <div>{booking.session}</div>
+                {booking.trainees.map((athlete) => {
+                  return (
+                    <div>
+                      {athlete.firstName} {athlete.lastName}
+                    </div>
+                  );
+                })}
+                <div>{booking.sessionType}</div>
+                <div className={classes["data-status"]}>
+                  <button> Cancel</button>
+                </div>
+              </div>
+            );
+          }
+          return null;
+        })}
+        {!booked && <p>No data here</p>}
+      </div>
 
       <h1>PAST</h1>
-
-      <div>{displayPastData()}</div>
+      <div>
+        {bookings.map((booking) => {
+          if (
+            booking.status === "Completed" ||
+            booking.status === "Cancelled"
+          ) {
+            if (!complete) setComplete(true);
+            return (
+              <div className={classes["history-row"]}>
+                <div>{booking.session}</div>
+                {booking.trainees.map((athlete) => {
+                  return (
+                    <div>
+                      {athlete.firstName} {athlete.lastName}
+                    </div>
+                  );
+                })}
+                <div>{booking.sessionType}</div>
+              </div>
+            );
+          }
+          return null;
+        })}
+        {!complete && <p>No data here</p>}
+      </div>
     </div>
   );
 }

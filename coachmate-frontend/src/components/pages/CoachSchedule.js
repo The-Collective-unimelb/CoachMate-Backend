@@ -73,6 +73,7 @@ function CoachSchedule(props) {
       coachEmail: location.state.coach.email,
       sessionTime: selectedTime.toString(),
       sessionDate: selectedDate.toString(),
+      sessionType: sessionType,
       location: location.state.coach.address,
       price: 10,
     };

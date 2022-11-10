@@ -12,6 +12,11 @@ var BookingSchema = new Schema({
         ref: 'sessionDate',
         required: true
     },
+    sessionType: {
+        type: String,
+        required: true,
+        enum: ["Private", "Group"]
+    },
     coach: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Coach',

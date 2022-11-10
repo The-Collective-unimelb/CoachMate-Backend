@@ -63,7 +63,7 @@ router.post("/logout", (req, res) => {
 });
 
 router.get("/:id", function (req, res, next) {
-  coach.findById(req.params.id, function (err, data) {
+  Coach.findById(req.params.id, function (err, data) {
     if (err) return next(err);
     res.json(data);
   });
