@@ -35,6 +35,26 @@ function CoachBookings() {
       });
   };
 
+  const handleAccept = (id) => {
+    console.log(id);
+    axios({
+      url: baseUrl + "/coaches/acceptBookings",
+      method: "POST",
+      data: { bookingId: id},
+      withCredentials: true,
+    })
+  };
+
+  const handleCancel = (id) => {
+    console.log(id);
+    axios({
+      url: baseUrl + "/coaches/cancelBookings",
+      method: "POST",
+      data: { bookingId: id},
+      withCredentials: true,
+    })
+  };
+
   useEffect(() => {
     getData();
   }, []);
@@ -81,8 +101,8 @@ function CoachBookings() {
                 })}
                 <div>{booking.sessionType}</div>
                 <div className={classes["data-status"]}>
-                  <button> Accept</button>
-                  <button> Cancel</button>
+                  <button onClick={(e) => handleAccept(booking._id, e)}> Accept</button>
+                  <button onClick={(e) => handleCancel(booking._id, e)}> Cancel</button>
                 </div>
               </div>
             );
@@ -99,7 +119,8 @@ function CoachBookings() {
             if (!booked) setBooked(true);
             return (
               <div className={classes["history-row"]}>
-                <div>{booking.session}</div>
+                <div>{booking.sessionDate}</div>
+                <div>{booking.sessionTime}</div>
                 {booking.trainees.map((athlete) => {
                   return (
                     <div>
@@ -109,7 +130,7 @@ function CoachBookings() {
                 })}
                 <div>{booking.sessionType}</div>
                 <div className={classes["data-status"]}>
-                  <button> Cancel</button>
+                  <button onClick={(e) => handleCancel(booking._id, e)}> Cancel</button>
                 </div>
               </div>
             );
@@ -129,7 +150,8 @@ function CoachBookings() {
             if (!complete) setComplete(true);
             return (
               <div className={classes["history-row"]}>
-                <div>{booking.session}</div>
+                <div>{booking.sessionDate}</div>
+                <div>{booking.sessionTime}</div>
                 {booking.trainees.map((athlete) => {
                   return (
                     <div>

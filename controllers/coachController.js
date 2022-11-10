@@ -8,14 +8,24 @@ exports.viewBookings = async (req, res) => {
 };
 
 exports.acceptBooking = async (req, res) => {
-  const coach = await Coach.findById(USER.id);
-  const booking = await coach.bookings.findById(req.body.bookingId);
-
+  const booking = await Booking.findById(req.body.bookingId);
+  console.log(booking);
   if (booking) {
     booking.status = "Booked";
     await booking.save();
   } else {
     throw Error("Acceptance failed");
+  }
+};
+
+exports.cancelBooking = async (req, res) => {
+  const booking = await Booking.findById(req.body.bookingId);
+  console.log(booking);
+  if (booking) {
+    booking.status = "Cancelled";
+    await booking.save();
+  } else {
+    throw Error("Cancellation failed");
   }
 };
 

@@ -73,4 +73,8 @@ router.post("/update", coachController.updateProfile);
 
 router.get("/viewBookings", coachController.viewBookings);
 
+router.post("/acceptBookings", coachController.acceptBooking);
+
+router.post("/cancelBookings", coachController.cancelBooking);
+
 module.exports = router;
