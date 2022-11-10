@@ -62,15 +62,16 @@ exports.viewBookings = async (req, res) => {
     trainees: { $elemMatch: { _id: athleteId } },
   });
 
-  console.log(book);
+  //console.log(book);
 
   for (let i = 0; i < book.length; i++) {
-    var coachID = book[i].coach
+    var coachID = book[i].coach;
+    console.log(typeof coachID);
     var coach = await Coach.findById(coachID);
     book[i].coachName = coach.firstName;
   }
 
-  console.log(book);
+  //console.log(book);
   res.send(book);
 };
 

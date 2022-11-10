@@ -27,6 +27,11 @@ var BookingSchema = new Schema({
         ref: 'coachName',
         required: false
     },
+    groupSize: {
+        type: Number,
+        ref: 'groupSize',
+        required: false
+    },
     location: {
         type: String,
         required: true
@@ -46,7 +51,7 @@ var BookingSchema = new Schema({
                 type: mongoose.Schema.Types.ObjectId,
                 ref: '/Trainee',
                 required: false,
-            },
+            }
         },
     ]
 })

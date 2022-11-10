@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import classes from "./AthleteBooking.module.css";
@@ -13,10 +13,12 @@ if (
 }
 
 function CoachBookings() {
+  const navigate = useNavigate();
   const [bookings, setBookings] = useState([]);
   const [pending, setPending] = useState(false);
   const [booked, setBooked] = useState(false);
   const [complete, setComplete] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   const getData = () => {
     axios
@@ -40,9 +42,10 @@ function CoachBookings() {
     axios({
       url: baseUrl + "/coaches/acceptBookings",
       method: "POST",
-      data: { bookingId: id},
+      data: { bookingId: id },
       withCredentials: true,
-    })
+    });
+    setRefresh(!refresh);
   };
 
   const handleCancel = (id) => {
@@ -50,14 +53,15 @@ function CoachBookings() {
     axios({
       url: baseUrl + "/coaches/cancelBookings",
       method: "POST",
-      data: { bookingId: id},
+      data: { bookingId: id },
       withCredentials: true,
-    })
+    });
+    setRefresh(!refresh);
   };
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [refresh]);
 
   return (
     <div className={classes["vertical-flex"]}>
@@ -75,7 +79,7 @@ function CoachBookings() {
         <div>|</div>
         <div>TIME</div>
         <div>|</div>
-        <div>ATHLETE</div>
+        <div>GROUP SIZE</div>
         <div>|</div>
         <div>SESSION TYPE</div>
         <div>|</div>
@@ -91,18 +95,17 @@ function CoachBookings() {
               <div className={classes["history-row"]}>
                 <div>{booking.sessionDate.slice(0, -12)}</div>
                 <div>{booking.sessionTime}</div>
-
-                {booking.trainees.map((athlete) => {
-                  return (
-                    <div>
-                      {athlete.firstName} {athlete.lastName}
-                    </div>
-                  );
-                })}
+                <div>{booking.groupSize}</div>
                 <div>{booking.sessionType}</div>
                 <div className={classes["data-status"]}>
-                  <button onClick={(e) => handleAccept(booking._id, e)}> Accept</button>
-                  <button onClick={(e) => handleCancel(booking._id, e)}> Cancel</button>
+                  <button onClick={(e) => handleAccept(booking._id, e)}>
+                    {" "}
+                    Accept
+                  </button>
+                  <button onClick={(e) => handleCancel(booking._id, e)}>
+                    {" "}
+                    Cancel
+                  </button>
                 </div>
               </div>
             );
@@ -121,16 +124,13 @@ function CoachBookings() {
               <div className={classes["history-row"]}>
                 <div>{booking.sessionDate.slice(0, -12)}</div>
                 <div>{booking.sessionTime}</div>
-                {booking.trainees.map((athlete) => {
-                  return (
-                    <div>
-                      {athlete.firstName} {athlete.lastName}
-                    </div>
-                  );
-                })}
+                <div>{booking.groupSize}</div>
                 <div>{booking.sessionType}</div>
                 <div className={classes["data-status"]}>
-                  <button onClick={(e) => handleCancel(booking._id, e)}> Cancel</button>
+                  <button onClick={(e) => handleCancel(booking._id, e)}>
+                    {" "}
+                    Cancel
+                  </button>
                 </div>
               </div>
             );
@@ -152,13 +152,7 @@ function CoachBookings() {
               <div className={classes["history-row"]}>
                 <div>{booking.sessionDate.slice(0, -12)}</div>
                 <div>{booking.sessionTime}</div>
-                {booking.trainees.map((athlete) => {
-                  return (
-                    <div>
-                      {athlete.firstName} {athlete.lastName}
-                    </div>
-                  );
-                })}
+                <div>{booking.groupSize}</div>
                 <div>{booking.sessionType}</div>
               </div>
             );

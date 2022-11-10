@@ -12,25 +12,6 @@ if (
   baseUrl = "https://coachmate-2022.herokuapp.com";
 }
 
-const DUMMY_VARS = [
-  {
-    date: "10/10/2022",
-    time: "10:00am",
-    coach: "Jett",
-    location: "Nunawading",
-    price: "100",
-    status: "Booked",
-  },
-  {
-    date: "10/10/2022",
-    time: "10:00am",
-    coach: "Pheonix",
-    location: "Clayton",
-    price: "100",
-    status: "Cancelled",
-  },
-];
-
 function AthleteBooking() {
   const [users, setUsers] = useState([]);
 

@@ -1,5 +1,5 @@
 import classes from "./CoachCard.module.css";
-import testPic from "../../assets/profile pic.png";
+import testPic from "../../assets/pfp-blue.jpg";
 
 function CoachCard(props) {
   return (

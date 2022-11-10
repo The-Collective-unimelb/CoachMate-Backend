@@ -1,10 +1,16 @@
 const Coach = require("../models/coach");
 const Booking = require("../models/booking");
+const Trainee = require("../models/trainee");
 
 exports.viewBookings = async (req, res) => {
   const coachId = USER.id;
-  res.send(await Booking.find({ coach: await Coach.findById(coachId) }));
+  var book = await Booking.find({ coach: await Coach.findById(coachId) });
 
+  for (let i = 0; i < book.length; i++) {
+    book[i].groupSize = book[i].trainees.length;
+  }
+
+  res.send(book);
 };
 
 exports.acceptBooking = async (req, res) => {
